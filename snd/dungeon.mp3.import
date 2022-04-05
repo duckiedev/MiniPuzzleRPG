@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dungeon.mp3-9d2d9d73e0a7843d4c6b6b57cd4b6161.mp3str"
+
+[deps]
+
+source_file="res://snd/dungeon.mp3"
+dest_files=[ "res://.import/dungeon.mp3-9d2d9d73e0a7843d4c6b6b57cd4b6161.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
