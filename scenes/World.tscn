@@ -466,7 +466,7 @@ trackerMax = 1
 nodeName = "BoxSpawn"
 
 [node name="BoxSpawn" parent="Level/LevelObjectiveListener/Objective3" groups=["NoCollision"] instance=ExtResource( 4 )]
-position = Vector2( -16, 16 )
+position = Vector2( 32, 64 )
 enabled = false
 amountMax = 1
 
