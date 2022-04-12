@@ -4,7 +4,6 @@ using System;
 public class Spot : Area2D
 {
     [Export(PropertyHint.Enum,"Water Bridge,Water Bridge Ledge,Ground Hole")] private int spotType;
-    [Export] private String progTracker;
 
     soundFX soundPlayer;
 
@@ -49,8 +48,11 @@ public class Spot : Area2D
             this.QueueFree();
         }
         Node world = this.GetParent();
-        world.GetNode<BoxSpawn>("BoxSpawn").Spawn();
-        world.GetNode<ProgTracker>(progTracker).checkProgress();
+        //world.GetNode<BoxSpawn>("BoxSpawn").Spawn();
+        if (GetParentOrNull<ProgTracker>() != null) {
+            GetParent<ProgTracker>().checkProgress();
+        }
+            
         //GD.Print(world.GetNode<Win>("Win").winCurrent.ToString());
     }
 }

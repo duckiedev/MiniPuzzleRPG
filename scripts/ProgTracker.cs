@@ -7,8 +7,6 @@ public class ProgTracker : Node
     // private int a = 2;
     // private string b = "text";
     [Export(PropertyHint.Range)] private int trackerMax;
-    [Export(PropertyHint.Enum,"Enable Node,Unlock Door")] private int action;
-    [Export] private String nodeName;
     
     public int trackerCurrent = 0;
     // Called when the node enters the scene tree for the first time.
@@ -20,17 +18,15 @@ public class ProgTracker : Node
     public void checkProgress()
     {
         trackerCurrent++;
+        GD.Print("Incrementing progress...");
         if (trackerCurrent == trackerMax) {
-            Node world = this.GetParent<Node>();
-            var targetNode = world.GetNode(nodeName);
-            switch (action){
-                case 0:
-                    targetNode.SetDeferred("enabled",true);
-                    targetNode.CallDeferred("_Ready");
-                break;
-                case 1:
-                    targetNode.QueueFree();
-                break;
+            for (int i = 0; i < GetChildCount(); i++)
+            {
+                var currentChild = GetChild(i);
+                if (currentChild.HasMethod("Run")) {
+                    GD.Print("it work?");
+                    currentChild.Call("Run");
+                }
             }
         }
     }

@@ -2,7 +2,5 @@
 
 [ext_resource path="res://scripts/ProgTracker.cs" type="Script" id=1]
 
-[node name="ProgTracker1" type="Node"]
+[node name="ProgTracker" type="Node"]
 script = ExtResource( 1 )
-winMax = 2
-nodeName = "BoxSpawn2"

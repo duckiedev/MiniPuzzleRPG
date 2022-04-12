@@ -23,7 +23,7 @@ public class Box : KinematicBody2D
         if (ray.IsColliding())
         {
             Node collider = (Node)ray.GetCollider();
-            GD.Print("Collided with" + collider.Name);
+            GD.Print("Collided with " + collider.Name);
             switch (collider.Name)
             {
                 case "TileMap":
@@ -43,7 +43,6 @@ public class Box : KinematicBody2D
                     }
                     break;
                 case "Spot":
-                    GD.Print("spoot");
                     canMove = true;
                 break;
                 default:

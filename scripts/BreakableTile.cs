@@ -41,6 +41,9 @@ public class BreakableTile : Area2D
                     }
 
                 }
+                if (GetParentOrNull<ProgTracker>() != null) {
+                    GetParent<ProgTracker>().checkProgress();
+                }
                 QueueFree();
             }
         }
