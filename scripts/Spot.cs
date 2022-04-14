@@ -3,56 +3,51 @@ using System;
 
 public class Spot : Area2D
 {
-    [Export(PropertyHint.Enum,"Water Bridge,Water Bridge Ledge,Ground Hole")] private int spotType;
-
-    soundFX soundPlayer;
+    private TileMap tileMap;
+    private soundFX soundPlayer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         soundPlayer = GetTree().Root.GetNode("World").GetNode("soundFX") as soundFX;
+        tileMap = GetTree().Root.GetNode("World").GetNode("Level").GetNode<TileMap>("TileMap");
     }
 
-    public void _on_Spot_body_entered(Node body) {
+    public void _on_Spot_body_entered(Node body)
+    {
         if (body.IsClass("TileMap")) return;
         Boolean destroy = true;
-        GD.Print(body.Name + " go Bongle  with " + this.Name);
-        switch (spotType){
-            case 0:
-                if (body.IsInGroup("Box")) {
+        TileMap.tiles tileIndex = 0;
+        if (body.IsInGroup("Box"))
+        {
+            switch (tileMap.GetCellv((Position)/tileMap.CellSize))
+            {
+                case (int)TileMap.tiles.WATER:
                     soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
-                    TileMap.GetTileMap(this).SwapTile(this.Position,14);
-                }
-            break;
-            case 1:
-                if (body.IsInGroup("Box")) {
+                    tileIndex = TileMap.tiles.BOX_BRIDGE_WATER;
+                break;
+
+                case (int)TileMap.tiles.WATER_LEDGE:
                     soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
-                    TileMap.GetTileMap(this).SwapTile(this.Position,12);
-                }
-            break;
-            case 2:
-                if (body.IsInGroup("Box")) {
+                    tileIndex = TileMap.tiles.BOX_BRIDGE_LEDGE;
+                break;
+
+                case (int)TileMap.tiles.LEDGE:
                     soundPlayer.SetSFX(soundPlayer.boxGroundHoleSFX);
-                    TileMap.GetTileMap(this).SwapTile(this.Position,12);
-                }
-            break;
-            case 3:
-                if (body.IsInGroup("Player")) {
-                    soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
-                    TileMap.GetTileMap(this).SwapTile(this.Position,12);
-                }
-            break;
+                    tileIndex = TileMap.tiles.BOX_BRIDGE_LEDGE;
+                break;
+            }
         }
+
+        if (tileIndex != 0) tileMap.SwapTile(this.Position,((int)tileIndex));
+
         if (destroy) {
             body.QueueFree();
             this.QueueFree();
         }
-        Node world = this.GetParent();
-        //world.GetNode<BoxSpawn>("BoxSpawn").Spawn();
+
         if (GetParentOrNull<ProgTracker>() != null) {
             GetParent<ProgTracker>().checkProgress();
         }
-            
-        //GD.Print(world.GetNode<Win>("Win").winCurrent.ToString());
     }
 }

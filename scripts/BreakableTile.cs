@@ -8,11 +8,13 @@ public class BreakableTile : Area2D
     // private string b = "text";
     [Export(PropertyHint.Enum,"On Enter,On Exit")] private int breakTime;
     // Called when the node enters the scene tree for the first time.
-    soundFX soundPlayer;
+    private soundFX soundPlayer;
+    private TileMap tileMap;
 
     public override void _Ready()
     {
         soundPlayer = GetTree().Root.GetNode("World").GetNode("soundFX") as soundFX;
+        tileMap = GetTree().Root.GetNode("World").GetNode("Level").GetNode<TileMap>("TileMap");
     }
 
     public void _on_BreakableTile_body_entered(Node body) {
@@ -26,7 +28,8 @@ public class BreakableTile : Area2D
         if (breakTime == 1) {
             if (body.IsInGroup("Player")) {
                 soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
-                TileMap.GetTileMap(this).SwapTile(this.Position,3);
+                int tileIndex = ((int)TileMap.tiles.WATER_LEDGE);
+                tileMap.SwapTile(this.Position,tileIndex);
                 Godot.Collections.Array list = GetChildren();
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -37,7 +40,7 @@ public class BreakableTile : Area2D
                         GD.Print(item.Get("tileIndex"));
                         Vector2 itemPos = this.Position + (Vector2)item.Get("position");
                         int itemTileIndex = (int)item.Get("tileIndex");
-                        TileMap.GetTileMap(this).SwapTile(itemPos,itemTileIndex);
+                        tileMap.SwapTile(itemPos,itemTileIndex);
                     }
 
                 }

@@ -19,4 +19,7 @@ shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 8, 8 )
+enabled = true
 cast_to = Vector2( 0, 16 )
+collide_with_areas = true
+collide_with_bodies = false
