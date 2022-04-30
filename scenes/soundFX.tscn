@@ -2,6 +2,6 @@
 
 [ext_resource path="res://snd/move.wav" type="AudioStream" id=1]
 
-[node name="soundFX" type="AudioStreamPlayer"]
+[node name="SoundFX" type="AudioStreamPlayer"]
 stream = ExtResource( 1 )
 bus = "FX"

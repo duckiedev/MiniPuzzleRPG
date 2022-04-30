@@ -1,25 +1,18 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://scripts/BreakableTile.cs" type="Script" id=1]
-[ext_resource path="res://scripts/TileTarget.cs" type="Script" id=2]
-[ext_resource path="res://scripts/ActionSpawn.cs" type="Script" id=3]
-[ext_resource path="res://scripts/VictoryDoor.cs" type="Script" id=4]
-[ext_resource path="res://scripts/ProgTracker.cs" type="Script" id=5]
-[ext_resource path="res://scripts/SpotToggle.cs" type="Script" id=6]
-[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Level.cs" type="Script" id=5]
+[ext_resource path="res://scenes/Box.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/SpotToggle.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Spot.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/ActionSpawn.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/VictoryDoor.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/BreakableTile.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/TileTarget.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/ProgTracker.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scripts/TileMap.cs" type="Script" id=16]
-[ext_resource path="res://scripts/Box.cs" type="Script" id=17]
-[ext_resource path="res://scripts/Spot.cs" type="Script" id=18]
-[ext_resource path="res://scripts/Door.cs" type="Script" id=19]
-[ext_resource path="res://gfx/tileset.png" type="Texture" id=20]
+[ext_resource path="res://scenes/BreakableTile.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/ActionSpawn.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/TileTarget.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Spot.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/PlayerStart.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/VictoryDoor.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/ProgTracker.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scripts/TileMap.cs" type="Script" id=21]
+[ext_resource path="res://gfx/tileset.png" type="Texture" id=22]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -63,10 +56,10 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="ConvexPolygonShape2D" id=14]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id=16]
 resource_local_to_scene = true
 0/name = "tileset.png 0"
-0/texture = ExtResource( 20 )
+0/texture = ExtResource( 22 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 128, 80, 32, 32 )
@@ -80,7 +73,7 @@ resource_local_to_scene = true
 0/shapes = [  ]
 0/z_index = 0
 1/name = "tileset.png 1"
-1/texture = ExtResource( 20 )
+1/texture = ExtResource( 22 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 160, 80, 48, 48 )
@@ -158,7 +151,7 @@ resource_local_to_scene = true
 } ]
 1/z_index = 0
 2/name = "tileset.png 2"
-2/texture = ExtResource( 20 )
+2/texture = ExtResource( 22 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 144, 112, 16, 16 )
@@ -179,7 +172,7 @@ resource_local_to_scene = true
 } ]
 2/z_index = 0
 3/name = "tileset.png 3"
-3/texture = ExtResource( 20 )
+3/texture = ExtResource( 22 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 128, 112, 16, 16 )
@@ -200,7 +193,7 @@ resource_local_to_scene = true
 } ]
 3/z_index = 0
 4/name = "tileset.png 4"
-4/texture = ExtResource( 20 )
+4/texture = ExtResource( 22 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 64, 32, 16, 16 )
@@ -214,7 +207,7 @@ resource_local_to_scene = true
 4/shapes = [  ]
 4/z_index = 0
 5/name = "tileset.png 5"
-5/texture = ExtResource( 20 )
+5/texture = ExtResource( 22 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 208, 80, 16, 16 )
@@ -235,7 +228,7 @@ resource_local_to_scene = true
 } ]
 5/z_index = 0
 6/name = "tileset.png 6"
-6/texture = ExtResource( 20 )
+6/texture = ExtResource( 22 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 208, 96, 16, 16 )
@@ -256,7 +249,7 @@ resource_local_to_scene = true
 } ]
 6/z_index = 0
 7/name = "tileset.png 7"
-7/texture = ExtResource( 20 )
+7/texture = ExtResource( 22 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 176, 96, 16, 16 )
@@ -270,7 +263,7 @@ resource_local_to_scene = true
 7/shapes = [  ]
 7/z_index = 0
 8/name = "tileset.png 8"
-8/texture = ExtResource( 20 )
+8/texture = ExtResource( 22 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 128, 80, 16, 16 )
@@ -284,7 +277,7 @@ resource_local_to_scene = true
 8/shapes = [  ]
 8/z_index = 0
 9/name = "tileset.png 9"
-9/texture = ExtResource( 20 )
+9/texture = ExtResource( 22 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 144, 80, 16, 16 )
@@ -298,7 +291,7 @@ resource_local_to_scene = true
 9/shapes = [  ]
 9/z_index = 0
 10/name = "tileset.png 10"
-10/texture = ExtResource( 20 )
+10/texture = ExtResource( 22 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 128, 96, 16, 16 )
@@ -312,7 +305,7 @@ resource_local_to_scene = true
 10/shapes = [  ]
 10/z_index = 0
 11/name = "tileset.png 11"
-11/texture = ExtResource( 20 )
+11/texture = ExtResource( 22 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 144, 96, 16, 16 )
@@ -326,7 +319,7 @@ resource_local_to_scene = true
 11/shapes = [  ]
 11/z_index = 0
 12/name = "tileset.png 12"
-12/texture = ExtResource( 20 )
+12/texture = ExtResource( 22 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 256, 128, 16, 16 )
@@ -340,7 +333,7 @@ resource_local_to_scene = true
 12/shapes = [  ]
 12/z_index = 0
 13/name = "tileset.png 13"
-13/texture = ExtResource( 20 )
+13/texture = ExtResource( 22 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 208, 112, 16, 16 )
@@ -361,7 +354,7 @@ resource_local_to_scene = true
 } ]
 13/z_index = 0
 14/name = "tileset.png 14"
-14/texture = ExtResource( 20 )
+14/texture = ExtResource( 22 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 272, 128, 16, 16 )
@@ -375,7 +368,7 @@ resource_local_to_scene = true
 14/shapes = [  ]
 14/z_index = 0
 15/name = "tileset.png 15"
-15/texture = ExtResource( 20 )
+15/texture = ExtResource( 22 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 256, 144, 16, 16 )
@@ -389,7 +382,7 @@ resource_local_to_scene = true
 15/shapes = [  ]
 15/z_index = 0
 16/name = "tileset.png 16"
-16/texture = ExtResource( 20 )
+16/texture = ExtResource( 22 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 272, 144, 16, 16 )
@@ -403,7 +396,7 @@ resource_local_to_scene = true
 16/shapes = [  ]
 16/z_index = 0
 17/name = "tileset.png 17"
-17/texture = ExtResource( 20 )
+17/texture = ExtResource( 22 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 288, 128, 16, 16 )
@@ -417,7 +410,7 @@ resource_local_to_scene = true
 17/shapes = [  ]
 17/z_index = 0
 18/name = "tileset.png 18"
-18/texture = ExtResource( 20 )
+18/texture = ExtResource( 22 )
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
 18/region = Rect2( 64, 48, 16, 16 )
@@ -432,64 +425,49 @@ resource_local_to_scene = true
 18/z_index = 0
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 5 )
+levelNumber = 1
+
+[node name="PlayerStart" parent="." instance=ExtResource( 15 )]
+position = Vector2( 112, 128 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 1 )
+tile_set = SubResource( 16 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 65537, 1, 1, 65537, 2, 1, 65538, 3, 5, 0, 4, 0, 0, 6, 5, 0, 7, 1, 65536, 8, 7, 0, 9, 1, 65537, 65536, 1, 65537, 65537, 1, 131073, 65538, 1, 131074, 65539, 6, 0, 65542, 6, 0, 65543, 1, 131072, 65544, 1, 131073, 65545, 1, 65537, 131072, 1, 65538, 131073, 9, 0, 131074, 0, 0, 131076, 0, 0, 131077, 9, 0, 131078, 17, 0, 131079, 16, 0, 131080, 0, 0, 131081, 1, 131072, 196608, 1, 131074, 196609, 11, 0, 196614, 3, 0, 196615, 11, 0, 196616, 3, 0, 196617, 3, 0, 262144, 3, 0, 262145, 9, 0, 262146, 0, 0, 262148, 0, 0, 262150, 2, 0, 262151, 3, 0, 262152, 2, 0, 262153, 2, 0, 327680, 2, 0, 327681, 11, 0, 327684, 3, 0, 327685, 3, 0, 327686, 2, 0, 327687, 4, 0, 327688, 2, 0, 327689, 2, 0, 393216, 1, 2, 393217, 9, 0, 393218, 0, 0, 393220, 18, 0, 393221, 2, 0, 393222, 0, 0, 393224, 0, 0, 393225, 2, 0, 458752, 7, 0, 458753, 1, 2, 458756, 1, 0, 458757, 1, 2, 458758, 10, 0, 458761, 1, 0, 524288, 1, 131073, 524289, 1, 131074, 524290, 0, 0, 524292, 1, 131072, 524293, 1, 131074, 524294, 8, 0, 524295, 9, 0, 524296, 0, 0, 524297, 1, 131072, 589826, 5, 0, 589827, 5, 0, 589830, 5, 0, 589831, 5, 0, 589832, 5, 0 )
-script = ExtResource( 16 )
+script = ExtResource( 21 )
 
-[node name="VictoryDoor" type="Node2D" parent="." instance=ExtResource( 12 )]
+[node name="VictoryDoor" parent="." instance=ExtResource( 16 )]
 position = Vector2( 64, -16 )
-script = ExtResource( 4 )
 
-[node name="SpotToggle" type="Area2D" parent="." instance=ExtResource( 9 )]
+[node name="SpotToggle" parent="." instance=ExtResource( 9 )]
 position = Vector2( 112, 32 )
-script = ExtResource( 6 )
 
-[node name="Door1" type="Node2D" parent="SpotToggle" groups=["Doors"] instance=ExtResource( 8 )]
+[node name="Door1" parent="SpotToggle" instance=ExtResource( 11 )]
 position = Vector2( -48, -32 )
-script = ExtResource( 19 )
 
-[node name="box" type="KinematicBody2D" parent="." groups=["Box"] instance=ExtResource( 7 )]
+[node name="box" parent="." instance=ExtResource( 8 )]
 position = Vector2( 112, 112 )
-script = ExtResource( 17 )
 
-[node name="box2" type="KinematicBody2D" parent="." groups=["Box"] instance=ExtResource( 7 )]
+[node name="box2" parent="." instance=ExtResource( 8 )]
 position = Vector2( 48, 48 )
-script = ExtResource( 17 )
 
-[node name="Spot" type="Area2D" parent="." groups=["Spots"] instance=ExtResource( 10 )]
+[node name="Spot" parent="." instance=ExtResource( 14 )]
 position = Vector2( 112, 64 )
-script = ExtResource( 18 )
 
-[node name="Spot2" type="Area2D" parent="." groups=["Spots"] instance=ExtResource( 10 )]
+[node name="Spot2" parent="." instance=ExtResource( 14 )]
 position = Vector2( 80, 96 )
-script = ExtResource( 18 )
 
-[node name="ProgTracker" type="Node" parent="." instance=ExtResource( 15 )]
-script = ExtResource( 5 )
+[node name="ProgTracker" parent="." instance=ExtResource( 17 )]
 trackerMax = 1
 
-[node name="BreakableTile" type="Area2D" parent="ProgTracker" instance=ExtResource( 13 )]
+[node name="BreakableTile" parent="ProgTracker" instance=ExtResource( 10 )]
 position = Vector2( 96, 32 )
-script = ExtResource( 1 )
 breakTime = 1
 
-[node name="TileTarget" type="Area2D" parent="ProgTracker/BreakableTile" instance=ExtResource( 14 )]
+[node name="TileTarget" parent="ProgTracker/BreakableTile" instance=ExtResource( 13 )]
 position = Vector2( 0, 16 )
-script = ExtResource( 2 )
-tileIndex = 2
 
-[node name="ActionSpawn" type="Node2D" parent="ProgTracker" instance=ExtResource( 11 )]
+[node name="ActionSpawn" parent="ProgTracker" instance=ExtResource( 12 )]
 position = Vector2( 112, 112 )
-script = ExtResource( 3 )
-spawnFile = ExtResource( 7 )
-
-[connection signal="body_entered" from="SpotToggle" to="SpotToggle" method="_on_SpotToggle_body_entered"]
-[connection signal="body_exited" from="SpotToggle" to="SpotToggle" method="_on_SpotToggle_body_exited"]
-[connection signal="body_entered" from="Spot" to="Spot" method="_on_Spot_body_entered"]
-[connection signal="body_entered" from="Spot2" to="Spot2" method="_on_Spot_body_entered"]
-[connection signal="body_entered" from="ProgTracker/BreakableTile" to="ProgTracker/BreakableTile" method="_on_BreakableTile_body_entered"]
-[connection signal="body_exited" from="ProgTracker/BreakableTile" to="ProgTracker/BreakableTile" method="_on_BreakableTile_body_exited"]

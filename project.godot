@@ -24,6 +24,12 @@ config/name="MiniPuzzleRPG"
 run/main_scene="res://scenes/World.tscn"
 config/icon="res://gfx/player.png"
 
+[autoload]
+
+musicPlayer="*res://scenes/musicPlayer.tscn"
+SceneChanger="*res://SceneChanger.tscn"
+SoundFX="*res://scripts/SoundFX.cs"
+
 [display]
 
 window/size/width=640
@@ -47,6 +53,11 @@ reset={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+next_map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

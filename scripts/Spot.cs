@@ -4,12 +4,12 @@ using System;
 public class Spot : Area2D
 {
     private TileMap tileMap;
-    private soundFX soundPlayer;
+    private SoundFX soundPlayer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        soundPlayer = GetTree().Root.GetNode("World").GetNode("soundFX") as soundFX;
+        soundPlayer = GetTree().Root.GetNode<SoundFX>("SoundFX");
         tileMap = GetTree().Root.GetNode("World").GetNode("Level").GetNode<TileMap>("TileMap");
     }
 
@@ -23,17 +23,17 @@ public class Spot : Area2D
             switch (tileMap.GetCellv((Position)/tileMap.CellSize))
             {
                 case (int)TileMap.tiles.WATER:
-                    soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
+                    soundPlayer.SetSFX(soundPlayer.sndfxtree.boxWaterSFX);
                     tileIndex = TileMap.tiles.BOX_BRIDGE_WATER;
                 break;
 
                 case (int)TileMap.tiles.WATER_LEDGE:
-                    soundPlayer.SetSFX(soundPlayer.boxWaterSFX);
+                    soundPlayer.SetSFX(soundPlayer.sndfxtree.boxWaterSFX);
                     tileIndex = TileMap.tiles.BOX_BRIDGE_LEDGE;
                 break;
 
                 case (int)TileMap.tiles.LEDGE:
-                    soundPlayer.SetSFX(soundPlayer.boxGroundHoleSFX);
+                    soundPlayer.SetSFX(soundPlayer.sndfxtree.boxGroundHoleSFX);
                     tileIndex = TileMap.tiles.BOX_BRIDGE_LEDGE;
                 break;
             }
