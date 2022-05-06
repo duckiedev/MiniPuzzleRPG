@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Main/UI/OptionButton.cs" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="New" type="Button"]
+margin_top = 15.0
+margin_right = 160.0
+margin_bottom = 29.0
+mouse_filter = 2
+custom_colors/font_color_focus = Color( 0.239216, 0.505882, 0.878431, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/focus = SubResource( 1 )
+shortcut_in_tooltip = false
+text = "New Game"
+flat = true
+script = ExtResource( 1 )
+
+[connection signal="focus_entered" from="." to="." method="_on_New_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_New_focus_exited"]

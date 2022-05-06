@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main/PuzzleObjects/ProgTracker.cs" type="Script" id=1]
+
+[node name="ProgTracker" type="Node"]
+script = ExtResource( 1 )

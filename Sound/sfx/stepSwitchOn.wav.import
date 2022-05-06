@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/stepSwitchOn.wav-493e7889b8c0e0c3b3925a23fc071d04.sample"
+
+[deps]
+
+source_file="res://Sound/sfx/stepSwitchOn.wav"
+dest_files=[ "res://.import/stepSwitchOn.wav-493e7889b8c0e0c3b3925a23fc071d04.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

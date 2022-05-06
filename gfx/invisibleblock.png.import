@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/invisibleblock.png-133bd3b2288012b12e7f708a3aa78736.stex"
+path="res://.import/invisibleblock.png-9222040f27b95788d75c659833c94d75.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/invisibleblock.png"
-dest_files=[ "res://.import/invisibleblock.png-133bd3b2288012b12e7f708a3aa78736.stex" ]
+source_file="res://GFX/invisibleblock.png"
+dest_files=[ "res://.import/invisibleblock.png-9222040f27b95788d75c659833c94d75.stex" ]
 
 [params]
 

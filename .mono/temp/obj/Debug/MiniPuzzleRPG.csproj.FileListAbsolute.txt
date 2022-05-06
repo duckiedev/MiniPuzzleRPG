@@ -6,3 +6,11 @@ C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.Assemb
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.csproj.CoreCompileInputs.cache
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.dll
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.pdb
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\bin\Debug\MiniPuzzleRPG.dll
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\bin\Debug\MiniPuzzleRPG.pdb
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.csprojAssemblyReference.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.AssemblyInfoInputs.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.AssemblyInfo.cs
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.csproj.CoreCompileInputs.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.dll
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\Debug\MiniPuzzleRPG.pdb

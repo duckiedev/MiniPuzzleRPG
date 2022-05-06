@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jshir\\Documents\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj": {}
+    "C:\\Users\\jshir\\Documents\\Godot Projects\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jshir\\Documents\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj": {
+    "C:\\Users\\jshir\\Documents\\Godot Projects\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jshir\\Documents\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj",
+        "projectUniqueName": "C:\\Users\\jshir\\Documents\\Godot Projects\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj",
         "projectName": "MiniPuzzleRPG",
-        "projectPath": "C:\\Users\\jshir\\Documents\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj",
+        "projectPath": "C:\\Users\\jshir\\Documents\\Godot Projects\\MiniPuzzleRPG\\MiniPuzzleRPG.csproj",
         "packagesPath": "C:\\Users\\jshir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jshir\\Documents\\MiniPuzzleRPG\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\jshir\\Documents\\Godot Projects\\MiniPuzzleRPG\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jshir\\AppData\\Roaming\\NuGet\\NuGet.Config"

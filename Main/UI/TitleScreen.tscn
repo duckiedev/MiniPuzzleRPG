@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Main/UI/TitleScreen.cs" type="Script" id=1]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/PressStart:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "start_flash"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/PressStart:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource( 1 )
+music = "titleMusic"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TopBG" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -88.0
+color = Color( 0.329412, 0.25098, 0.25098, 1 )
+
+[node name="BottomBG" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 56.0
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 144.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_constants/line_spacing = 0
+text = "Mini Puzzle RPG"
+
+[node name="PressStart" type="Label" parent="CanvasLayer"]
+anchor_left = 0.25
+anchor_top = 0.556
+anchor_right = 0.25
+anchor_bottom = 0.556
+margin_top = -0.0640106
+margin_right = 88.0
+margin_bottom = 7.93599
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 0
+text = "Press Start"
+
+[node name="Copyright" type="Label" parent="CanvasLayer"]
+margin_left = 48.0
+margin_top = 136.0
+margin_right = 160.0
+margin_bottom = 144.0
+custom_colors/font_color = Color( 0.521569, 0.521569, 0.521569, 1 )
+text = "2022 DuckieDev"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/start_flash = SubResource( 2 )

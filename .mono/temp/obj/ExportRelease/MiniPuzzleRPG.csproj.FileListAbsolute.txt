@@ -6,3 +6,11 @@ C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRP
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.csproj.CoreCompileInputs.cache
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.dll
 C:\Users\jshir\Documents\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.pdb
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\bin\ExportRelease\MiniPuzzleRPG.dll
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\bin\ExportRelease\MiniPuzzleRPG.pdb
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.csprojAssemblyReference.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.AssemblyInfoInputs.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.AssemblyInfo.cs
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.csproj.CoreCompileInputs.cache
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.dll
+C:\Users\jshir\Documents\Godot Projects\MiniPuzzleRPG\.mono\temp\obj\ExportRelease\MiniPuzzleRPG.pdb
