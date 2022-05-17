@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://GFX/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Main/Levels/Level.cs" type="Script" id=2]
@@ -8,13 +8,11 @@
 [ext_resource path="res://Main/PuzzleObjects/SpotToggle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Main/PuzzleObjects/TileTarget.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main/PuzzleObjects/Spot.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Main/Player/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Main/PuzzleObjects/Obstacle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Main/PuzzleObjects/ProgTracker.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Main/PuzzleObjects/Box.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Main/PuzzleObjects/Box/Box.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Main/PuzzleObjects/BreakableTile.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Main/PuzzleObjects/ActionSpawn.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Main/PlayerStart.cs" type="Script" id=15]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -433,6 +431,7 @@ extents = Vector2( 15, 7 )
 script = ExtResource( 2 )
 levelNumber = 1
 levelNext = "0-2"
+playerCanMove = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 16 )
@@ -479,15 +478,11 @@ position = Vector2( 0, 16 )
 [node name="ActionSpawn" parent="ProgTracker" instance=ExtResource( 14 )]
 position = Vector2( 112, 112 )
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource( 9 )]
-position = Vector2( -32, 0 )
-
-[node name="PlayerStart" parent="." instance=ExtResource( 5 )]
-position = Vector2( 112, 128 )
-script = ExtResource( 15 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
+
+[node name="PlayerStart" parent="." instance=ExtResource( 5 )]
+position = Vector2( 112, 128 )
 
 [editable path="SpotToggle/Door1"]

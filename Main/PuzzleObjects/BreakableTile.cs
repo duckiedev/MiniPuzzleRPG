@@ -21,7 +21,7 @@ public class BreakableTile : Area2D
         if (body.IsInGroup("Player")) {
             audioManager.PlaySFX(data.sfxTree.boxWaterSFX);
             int tileIndex = ((int)TileMap.tiles.WATER_LEDGE);
-            tileMap.SwapTile(this.Position,tileIndex);
+            tileMap.SwapTile(body,this.Position,tileIndex);
             Godot.Collections.Array list = GetChildren();
             for (int i = 0; i < list.Count; i++)
             {
@@ -29,22 +29,28 @@ public class BreakableTile : Area2D
                 if (item.Name.StartsWith("TileTarget")) {
                     Vector2 itemPos = this.Position + (Vector2)item.Get("position");
                     int itemTileIndex = (int)item.Get("tileIndex");
-                    tileMap.SwapTile(itemPos,itemTileIndex);
+                    tileMap.SwapTile(body,itemPos,itemTileIndex);
                 }
             }
             if (GetParentOrNull<ProgTracker>() != null) {
                 GetParent<ProgTracker>().checkProgress();
             }
-            QueueFree();
+            CallDeferred("queue_free");
         }
     }
 
+    public void _on_BreakLeave()
+    {
+
+    }
     public void _on_BreakableTile_body_entered(Node body) {
+        if (!body.IsInGroup("Player")) return;
         if (breakTime == 1) return;
         if (breakTime == 0) BreakTile(body);
     }
 
     public void _on_BreakableTile_body_exited(Node body) {
+        if (!body.IsInGroup("Player")) return;
         if (breakTime == 0) return;
         if (breakTime == 1) BreakTile(body);
     }

@@ -3,25 +3,44 @@ using System;
 
 public class OptionButton : Button
 {
+    [Export] public String defaultText = "";
+    public Data data;
+    public AudioManager audioManager;
+    public Sprite sprite;
+    public AnimationPlayer animationPlayer;
+    public SceneChanger sceneChanger;
+    public Label mainLabel;
 
-    [Export] string defaultText = "";
-    Data data;
-    AudioManager audioManager;
-
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        data = GetTree().Root.GetNode<Data>("Data");
-        audioManager = GetTree().Root.GetNode<AudioManager>("AudioManager");
+        data = GetNode<Data>("/root/Data");
+        audioManager = GetNode<AudioManager>("/root/AudioManager");
+        sceneChanger = GetNode<SceneChanger>("/root/SceneChanger");
+
+        sprite = GetNode<Sprite>("PlayerSprite");
+        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        mainLabel = GetNode<Label>("MainLabel");
+
+        sprite.Visible = false;
+        animationPlayer.Stop();
     }
 
-    public void _on_New_focus_entered()
+    public virtual void _on_OptionButton_focus_entered()
     {
-        Text = $"*{defaultText}";    
+        sprite.Visible = true;
+        animationPlayer.Play("spin");
     }
 
-    public void _on_New_focus_exited()
+    public virtual void _on_OptionButton_focus_exited()
     {
-        Text = defaultText;
         audioManager.PlaySFX(data.sfxTree.playerMoveSFX);
+        sprite.Visible = false;
+        animationPlayer.Stop();
+    }
+
+    public virtual void _on_OptionButton_pressed()
+    {
+        
     }
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Main/UI/TitleScreen.cs" type="Script" id=1]
+[ext_resource path="res://Main/Levels/TitleScreen.cs" type="Script" id=1]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -33,9 +33,9 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[node name="TitleScreen" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-music = "titleMusic"
+levelMusic = "titleMusic"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

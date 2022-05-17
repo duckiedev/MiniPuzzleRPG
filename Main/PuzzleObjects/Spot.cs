@@ -16,7 +16,7 @@ public class Spot : Area2D
         tileMap = GetTree().Root.GetNode<TileMap>("Level/TileMap");
     }
 
-    public void _on_Spot_body_entered(Node body)
+    public async void _on_Spot_body_entered(Node body)
     {
         if (body.IsClass("TileMap")) return;
         Boolean destroy = true;
@@ -39,14 +39,23 @@ public class Spot : Area2D
                     audioManager.PlaySFX(data.sfxTree.boxGroundHoleSFX);
                     tileIndex = TileMap.tiles.BOX_BRIDGE_LEDGE;
                 break;
+
+                case (int)TileMap.tiles.SPOT_TOGGLE_UP:
+                    audioManager.PlaySFX(data.sfxTree.stepSwitchOn);
+                    destroy = false;
+                break;
             }
+                
         }
 
-        if (tileIndex != 0) tileMap.SwapTile(this.Position,((int)tileIndex));
+        await ToSignal(body.GetNode<GridMoveTween>("GridMoveTween"),"tween_all_completed");
+        if (tileIndex != 0) tileMap.SwapTile(body,this.Position,((int)tileIndex));
 
         if (destroy) {
-            body.QueueFree();
-            this.QueueFree();
+            var box = body as Box;
+            box.Destroy();
+            destroy = false;
+            this.CallDeferred("queue_free");
         }
 
         if (GetParentOrNull<ProgTracker>() != null) {

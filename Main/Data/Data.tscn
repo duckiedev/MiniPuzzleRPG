@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Main/Data/MusicTree.tres" type="Resource" id=1]
+[ext_resource path="res://Main/Data/SfxTree.tres" type="Resource" id=2]
+[ext_resource path="res://Main/Data/Data.cs" type="Script" id=3]
+
+[node name="Data" type="Node"]
+pause_mode = 2
+script = ExtResource( 3 )
+sfxTree = ExtResource( 2 )
+musicTree = ExtResource( 1 )

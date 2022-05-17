@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public class TitleScreen : Node2D
+public class TitleScreen : Level
 {
-    [Export] String music;
     Data data;
     SceneChanger sceneChanger;
     AudioManager audioManager;
@@ -17,12 +16,13 @@ public class TitleScreen : Node2D
 
     public override void _Ready()
     {
+        base._Ready();
         data = GetTree().Root.GetNode<Data>("Data");
 
-        sceneChanger = GetTree().Root.GetNode<SceneChanger>("SceneChanger");
+        sceneChanger = GetNode<SceneChanger>("/root/SceneChanger");
 
-        audioManager = GetTree().Root.GetNode<AudioManager>("AudioManager");
-        audioManager.PlayMusic((AudioStream)data.musicTree.Get(music));
+        audioManager = GetNode<AudioManager>("/root/AudioManager");
+        audioManager.PlayMusic((AudioStream)data.musicTree.Get(levelMusic));
         /*
         options = GetNode<VBoxContainer>("CanvasLayer/Options");
         optionNew = options.GetNode<Button>("New");
@@ -40,7 +40,7 @@ public class TitleScreen : Node2D
         if (Input.IsActionJustPressed("ui_accept"))
         {
             audioManager.PlaySFX(data.sfxTree.selectSFX);
-            sceneChanger.ChangeScene("res://Main/UI/SaveSelect.tscn");
+            sceneChanger.ChangeScene("res://Main/Levels/SaveSelect.tscn");
         }
     }
 

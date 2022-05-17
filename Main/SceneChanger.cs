@@ -21,9 +21,10 @@ public class SceneChanger : CanvasLayer
         blackRect.Visible = false;
     }
 
-    public async void ChangeScene(String path, Boolean level = false, float delay = 0.5f)
+    public async void ChangeScene(String path, Boolean level = false, float delay = 0.2f)
     {
         await ToSignal(GetTree().CreateTimer(delay), "timeout");
+        audioManager.sfxDisabled = true;
         // Fade out music
         audioManager.FadeMusic("out","long");
         await ToSignal(audioManager.musicPlayer.Fader, "animation_finished");
@@ -35,6 +36,7 @@ public class SceneChanger : CanvasLayer
         // Change scene
         if (level) path = $"res://Main/Levels/Level{path}.tscn";
         GetTree().ChangeScene(path);
+        GD.Print(GetTree().CurrentScene);
         // Fade in screen
         animationPlayer.PlayBackwards("fade");
         await ToSignal(animationPlayer, "animation_finished");
@@ -45,6 +47,8 @@ public class SceneChanger : CanvasLayer
         audioManager.PlayMusic(sceneMusic);
 
         blackRect.Visible = false;
+
         EmitSignal("SceneChanged");
+        audioManager.sfxDisabled = false;
     }
 }

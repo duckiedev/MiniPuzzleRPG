@@ -1,0 +1,172 @@
+[gd_scene format=2]
+
+[node name="ControlsScreen" type="Node2D"]
+pause_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_constants/line_spacing = 0
+text = "Controls"
+
+[node name="MoveUp" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.222
+anchor_right = 1.0
+anchor_bottom = 0.278
+margin_left = 8.0
+margin_top = 32.0
+margin_right = 64.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 8 )
+text = "Move Up"
+
+[node name="Keys" type="Label" parent="MoveUp"]
+margin_left = 56.0
+margin_top = 8.0
+margin_right = 112.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "W or Up"
+
+[node name="MoveDown" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.333
+anchor_right = 1.0
+anchor_bottom = 0.389
+margin_left = 8.0
+margin_top = 48.0
+margin_right = 80.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/line_spacing = 9
+text = "Move Down"
+
+[node name="Keys" type="Label" parent="MoveDown"]
+margin_left = 56.0
+margin_top = 8.0
+margin_right = 128.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "S or Down"
+
+[node name="MoveLeft" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.444
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = 64.0
+margin_right = 80.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 8 )
+text = "Move Left"
+
+[node name="Keys" type="Label" parent="MoveLeft"]
+margin_left = 56.0
+margin_top = 8.0
+margin_right = 128.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "A or Left"
+
+[node name="MoveRight" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.556
+anchor_right = 1.0
+anchor_bottom = 0.611
+margin_left = 8.0
+margin_top = 80.0
+margin_right = 88.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/line_spacing = 9
+text = "Move Right"
+
+[node name="Keys" type="Label" parent="MoveRight"]
+margin_left = 56.0
+margin_top = 8.00002
+margin_right = 136.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "D or Right"
+
+[node name="RestartLevel" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 0.722
+margin_left = 8.0
+margin_top = 96.0
+margin_right = 112.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/line_spacing = 9
+text = "Restart Level"
+
+[node name="Keys" type="Label" parent="RestartLevel"]
+margin_left = 56.0
+margin_top = 8.00001
+margin_right = 128.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "R"
+
+[node name="Pause" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.778
+anchor_right = 1.0
+anchor_bottom = 0.833
+margin_left = 8.0
+margin_top = 128.0
+margin_right = 88.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/line_spacing = 9
+text = "Back"
+
+[node name="Keys" type="Label" parent="Pause"]
+margin_left = 56.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "Escape"
+
+[node name="Start" type="Label" parent="."]
+anchor_left = 0.05
+anchor_top = 0.889
+anchor_right = 1.0
+anchor_bottom = 0.944
+margin_left = 8.0
+margin_top = 112.0
+margin_right = 96.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/line_spacing = 9
+text = "Start/Pause"
+
+[node name="Keys" type="Label" parent="Start"]
+margin_left = 56.0
+margin_top = 8.0
+margin_right = 96.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 8 )
+custom_colors/font_color = Color( 0.964706, 0.968627, 0.501961, 1 )
+custom_constants/line_spacing = 9
+text = "Enter"

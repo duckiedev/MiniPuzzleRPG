@@ -1,12 +1,10 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Main/Player/PlayerStart.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/Levels/Level.cs" type="Script" id=2]
-[ext_resource path="res://Main/Player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Main/PlayerStart.cs" type="Script" id=4]
 [ext_resource path="res://GFX/columnface.png" type="Texture" id=5]
 [ext_resource path="res://Main/PuzzleObjects/ProgTracker.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Main/PuzzleObjects/Box.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Main/PuzzleObjects/Box/Box.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Main/PuzzleObjects/Obstacle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Main/PuzzleObjects/SpotToggle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Main/PuzzleObjects/ActionSpawn.tscn" type="PackedScene" id=10]
@@ -25,9 +23,6 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
-
-[sub_resource type="ConvexPolygonShape2D" id=6]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
@@ -118,12 +113,6 @@ resource_local_to_scene = true
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 5 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 1, 1 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 6 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 2, 1 ),
@@ -429,13 +418,14 @@ resource_local_to_scene = true
 extents = Vector2( 15, 7 )
 
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 7, 15 )
+extents = Vector2( 8, 16 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
 levelWorld = 1
 levelNumber = 2
-levelNext = "0-1"
+levelNext = "0-3"
+playerCanMove = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -499,16 +489,12 @@ position = Vector2( 112, 64 )
 position = Vector2( 128, 32 )
 breakTime = 1
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource( 3 )]
-position = Vector2( -16, 0 )
-
-[node name="PlayerStart" parent="." instance=ExtResource( 1 )]
-position = Vector2( 96, 128 )
-script = ExtResource( 4 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
+
+[node name="PlayerStart" parent="." instance=ExtResource( 1 )]
+position = Vector2( 96, 128 )
 
 [editable path="VictoryDoor"]
 [editable path="SpotToggle/Obstacle"]

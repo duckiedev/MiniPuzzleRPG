@@ -3,6 +3,7 @@ using System;
 
 public class Data : Node
 {
+    public static int gridSize = 16;
     [Export] public SfxTree sfxTree;
     [Export] public MusicTree musicTree;
     [Export] public BitmapFont mainFont;
@@ -10,6 +11,9 @@ public class Data : Node
     public string currentLevel;
     public int currentSave = 0;
     public string[] saveFileProgress = {"","",""};
+
+    public PackedScene pauseScreenScene;
+    public PauseScene pauseScreen;
 
     public override void _Ready()
     {
@@ -25,9 +29,10 @@ public class Data : Node
             }
             ResourceSaver.Save("res://GFX/UI/font.tres",mainFont);
         }
-        GetSaveGameData();
-        GD.Print(saveFileProgress);
 
+        pauseScreenScene = ResourceLoader.Load<PackedScene>("res://Main/UI/PauseScene.tscn");
+
+        GetSaveGameData();
     }
 
     public void NewGame(int saveFile)
@@ -69,7 +74,7 @@ public class Data : Node
 
     public void GetSaveGameData()
     {
-        int files = 2;
+        int files = 3;
         for (int i = 0; i < files; i++)
         {
             var file = new File();
@@ -92,4 +97,26 @@ public class Data : Node
             file.Close();
         }
     }
+
+    public void PauseGame()
+    {
+        GetNode<AudioManager>("/root/AudioManager").PauseMusic();
+
+        pauseScreen = pauseScreenScene.Instance() as PauseScene;
+        GetTree().Root.AddChild(pauseScreen);
+        GetTree().Root.MoveChild(pauseScreen,GetTree().Root.GetChildCount());
+        pauseScreen.Position = new Vector2(0,0);
+        pauseScreen.Owner = GetTree().Root;
+        GetTree().Paused = true;
+    }
+    public void UnpauseGame()
+    {
+        GetTree().Root.RemoveChild(pauseScreen);
+        pauseScreen.QueueFree();
+        GetNode<Player>("/root/Player").stateMachine.TransitionTo("PlayerStates/Idle");
+        GetNode<AudioManager>("/root/AudioManager").UnpauseMusic();
+        GetTree().Paused = false;
+    }
+
+
 }

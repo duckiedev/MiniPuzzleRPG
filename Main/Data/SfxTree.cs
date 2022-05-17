@@ -10,5 +10,5 @@ public class SfxTree : Resource
     [Export] public AudioStream boxGroundHoleSFX;
     [Export] public AudioStream stepSwitchOn;
     [Export] public AudioStream stepSwitchOff;
-    [Export] public AudioStream victoryDoor;
+    [Export] public AudioStream boxWaterFloat;
 }

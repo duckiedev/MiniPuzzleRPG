@@ -1,7 +1,13 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://GFX/player.png" type="Texture" id=1]
 [ext_resource path="res://Main/Player/Player.cs" type="Script" id=2]
+[ext_resource path="res://Main/GridMoveTween.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main/Player/PlayerState.cs" type="Script" id=4]
+[ext_resource path="res://Main/StateMachine.cs" type="Script" id=5]
+[ext_resource path="res://Main/Player/States/Idle.cs" type="Script" id=6]
+[ext_resource path="res://Main/Player/States/Move.cs" type="Script" id=7]
+[ext_resource path="res://Main/Player/States/Disabled.cs" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 7 )
@@ -218,6 +224,7 @@ start_node = "idle"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=12]
 
 [node name="Player" type="KinematicBody2D"]
+collision/safe_margin = 1.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -232,7 +239,7 @@ shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 8, 8 )
-cast_to = Vector2( 0, 16 )
+cast_to = Vector2( 0, 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
@@ -251,3 +258,25 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 12 )
 parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/push/blend_position = Vector2( 0, 0 )
+
+[node name="GridMoveTween" parent="." instance=ExtResource( 3 )]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 5 )
+initialState = NodePath("PlayerStates/Idle")
+
+[node name="PlayerStates" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+stateMachinePath = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine/PlayerStates"]
+script = ExtResource( 6 )
+stateMachinePath = NodePath("../..")
+
+[node name="Move" type="Node" parent="StateMachine/PlayerStates"]
+script = ExtResource( 7 )
+stateMachinePath = NodePath("../..")
+
+[node name="Disabled" type="Node" parent="StateMachine/PlayerStates"]
+script = ExtResource( 8 )
+stateMachinePath = NodePath("../..")
