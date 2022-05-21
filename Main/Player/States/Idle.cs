@@ -9,25 +9,24 @@ public class Idle : PlayerState
     {
         base._Ready();
         inputs = new Godot.Collections.Dictionary();
-        inputs.Add("ui_up",Vector2.Up);
-        inputs.Add("ui_down",Vector2.Down);
-        inputs.Add("ui_left",Vector2.Left);
-        inputs.Add("ui_right",Vector2.Right);
+        inputs.Add("up",Vector2.Up);
+        inputs.Add("down",Vector2.Down);
+        inputs.Add("left",Vector2.Left);
+        inputs.Add("right",Vector2.Right);
     }
 
     public override void UnhandledInput(InputEvent @event)
     {
         if (!tween.IsActive())
         {
-            if (@event.IsActionPressed("reset"))
+            if (@event.IsActionPressed("select"))
             {
                 GetTree().CallDeferred("reload_current_scene");
                 return;
             }
-            if (@event.IsActionPressed("pause"))
+            if (@event.IsActionPressed("start"))
             {
                 stateMachine.TransitionTo("PlayerStates/Disabled");
-                GD.Print("Pause from player idle state");
                 data.PauseGame();
                 return;
             }
@@ -46,7 +45,7 @@ public class Idle : PlayerState
 
     public override void Enter(Godot.Collections.Dictionary msg)
     {
-        //playerCollision.Disabled = false;
+        player.state = Player.PlayerStates.IDLE;
         parent.Enter(msg);
     }
 

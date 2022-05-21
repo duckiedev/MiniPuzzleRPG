@@ -37,7 +37,7 @@ public class TitleScreen : Level
 
     public override void _Process(float delta)
     {
-        if (Input.IsActionJustPressed("ui_accept"))
+        if (Input.IsActionJustPressed("start"))
         {
             audioManager.PlaySFX(data.sfxTree.selectSFX);
             sceneChanger.ChangeScene("res://Main/Levels/SaveSelect.tscn");

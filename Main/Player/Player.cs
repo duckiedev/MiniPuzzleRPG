@@ -3,19 +3,19 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    public StateMachine stateMachine;
-    public enum playerState {
+    public enum PlayerStates
+    {
         IDLE,
         MOVE,
         DISABLED
     }
-    public playerState state = playerState.MOVE;
-    private SceneChanger sceneChanger;
+
+    public StateMachine stateMachine;
+    public PlayerStates state;
 
     public override void _Ready()
     {
         stateMachine = GetNode<StateMachine>("StateMachine");
-        sceneChanger = GetTree().Root.GetNode<SceneChanger>("SceneChanger");
         AddToGroup("Player",true);
     }
 }

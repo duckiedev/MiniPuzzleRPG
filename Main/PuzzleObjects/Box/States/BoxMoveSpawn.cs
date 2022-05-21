@@ -8,6 +8,7 @@ public class BoxMoveSpawn : BoxState
     {
         if (msg.Count > 0)
         {
+            GD.Print("Disabled by BoxMoveSpawn");
             player.stateMachine.TransitionTo("PlayerStates/Disabled");
             var endPosition = (Vector2)msg["endPosition"];
             tween.InterpolateProperty(box,"position",box.Position,endPosition,2,Tween.TransitionType.Sine,Tween.EaseType.Out);

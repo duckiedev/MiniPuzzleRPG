@@ -12,11 +12,11 @@ public class MainScreenOptions : VBoxContainer
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("ui_up"))
+        if (@event.IsActionPressed("up"))
         {
             selectedOption = Mathf.Wrap(selectedOption +=1,0,options);
         }
-        else if (@event.IsActionPressed("ui_down"))
+        else if (@event.IsActionPressed("down"))
         {
             selectedOption = Mathf.Wrap(selectedOption -=1,0,options);
         }

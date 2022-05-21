@@ -6,6 +6,7 @@ public class Move : PlayerState
     private Boolean tweenStarted = false;
     public override void Enter(Godot.Collections.Dictionary msg)
     {
+        player.state = Player.PlayerStates.MOVE;
         if (msg.Count > 0)
         {
             var dir = (Vector2)msg["dir"];
@@ -71,9 +72,6 @@ public class Move : PlayerState
     {
         if (!tween.IsActive())
         {
-            //playerCollision.Disabled = true;
-            //tween.InterpolateMethod(player,"move_and_collide",player.Position,player.Position + vectorPos,0.1f,Tween.TransitionType.Sine,Tween.EaseType.InOut);
-            
             tween.InterpolateProperty(
                 player,
                 "position",

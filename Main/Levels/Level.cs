@@ -9,14 +9,23 @@ public class Level : Node2D
     [Export] public string levelMusic = "levelMusic";
     [Export] public Boolean playerCanMove = false;
 
+    private Player player;
+    private PlayerStart playerStart;
+
     public override void _Ready()
     {
-        if (playerCanMove) {
-            GetNode<Player>("/root/Player").stateMachine.TransitionTo("PlayerStates/Idle");
+        player = GetNode<Player>("/root/Player");
+        playerStart = GetNodeOrNull<PlayerStart>("PlayerStart");
+        
+        if (playerCanMove && playerStart != null) 
+        {
+            player.Position = playerStart.GlobalPosition;
+            GetTree().Root.MoveChild(player,GetTree().Root.GetChildCount());
+            player.stateMachine.TransitionTo("PlayerStates/Idle");
         }
         else
         {
-            GetNode<Player>("/root/Player").stateMachine.TransitionTo("PlayerStates/Disabled");
+            player.stateMachine.TransitionTo("PlayerStates/Disabled");
         }
 
     }

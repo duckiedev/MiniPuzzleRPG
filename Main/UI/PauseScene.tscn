@@ -23,3 +23,6 @@ color = Color( 0.0784314, 0.0352941, 0.0352941, 1 )
 
 [node name="ControlsScreen" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[editable path="MainScreen"]
+[editable path="MainScreen/MainScreenMenu"]

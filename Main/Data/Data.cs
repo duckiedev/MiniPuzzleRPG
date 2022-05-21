@@ -105,7 +105,7 @@ public class Data : Node
         pauseScreen = pauseScreenScene.Instance() as PauseScene;
         GetTree().Root.AddChild(pauseScreen);
         GetTree().Root.MoveChild(pauseScreen,GetTree().Root.GetChildCount());
-        pauseScreen.Position = new Vector2(0,0);
+        //pauseScreen.Position = new Vector2(0,0);
         pauseScreen.Owner = GetTree().Root;
         GetTree().Paused = true;
     }

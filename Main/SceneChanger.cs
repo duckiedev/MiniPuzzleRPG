@@ -13,8 +13,8 @@ public class SceneChanger : CanvasLayer
     ColorRect blackRect;
     public override void _Ready()
     {
-        data = GetTree().Root.GetNode<Data>("Data");
-        audioManager = GetTree().Root.GetNode<AudioManager>("AudioManager");
+        data = GetNode<Data>("/root/Data");
+        audioManager = GetNode<AudioManager>("/root/AudioManager");
 
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         blackRect = GetNode<ColorRect>("Control/BlackRect");
@@ -36,12 +36,11 @@ public class SceneChanger : CanvasLayer
         // Change scene
         if (level) path = $"res://Main/Levels/Level{path}.tscn";
         GetTree().ChangeScene(path);
-        GD.Print(GetTree().CurrentScene);
         // Fade in screen
         animationPlayer.PlayBackwards("fade");
         await ToSignal(animationPlayer, "animation_finished");
         // Fade in music
-        var newScene = GetTree().Root.GetNode<Level>("Level");
+        var newScene = GetNode<Level>("/root/Level");
         AudioStream sceneMusic = data.musicTree.Get(newScene.levelMusic) as AudioStream;
         audioManager.ResetMusicVol();
         audioManager.PlayMusic(sceneMusic);

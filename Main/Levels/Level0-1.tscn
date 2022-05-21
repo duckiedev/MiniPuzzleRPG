@@ -428,6 +428,7 @@ resource_local_to_scene = true
 extents = Vector2( 15, 7 )
 
 [node name="Level" type="Node2D"]
+position = Vector2( 0, -1 )
 script = ExtResource( 2 )
 levelNumber = 1
 levelNext = "0-2"
@@ -485,4 +486,5 @@ current = true
 [node name="PlayerStart" parent="." instance=ExtResource( 5 )]
 position = Vector2( 112, 128 )
 
+[editable path="VictoryDoor"]
 [editable path="SpotToggle/Door1"]

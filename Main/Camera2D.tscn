@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=1]
+
+[node name="Camera2D" type="Camera2D"]
+position = Vector2( 128, 224 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 208
+limit_bottom = 240
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 8.0
+script = ExtResource( 1 )
