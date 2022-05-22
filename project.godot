@@ -27,7 +27,7 @@ config/icon="res://GFX/player_single.png"
 [autoload]
 
 Data="*res://Main/Data/Data.tscn"
-SceneChanger="*res://Main/SceneChanger.tscn"
+SceneChanger="*res://Main/Util/SceneChanger.tscn"
 SoundFXPlayer="*res://Main/Audio/SoundFXPlayer.tscn"
 MusicPlayer="*res://Main/Audio/MusicPlayer.tscn"
 AudioManager="*res://Main/Audio/AudioManager.tscn"

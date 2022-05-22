@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Main/UI/OptionMenu.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Main/UI/OptionLabels/LoadSaveGame.cs" type="Script" id=2]
+[ext_resource path="res://Main/UI/Screens/Menus/OptionMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/UI/Screens/Menus/OptionLabels/LoadSaveGame.cs" type="Script" id=2]
 [ext_resource path="res://Main/Levels/SaveSelect.cs" type="Script" id=3]
 
 [node name="Level" type="Node2D"]

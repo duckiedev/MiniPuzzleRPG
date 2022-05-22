@@ -1,0 +1,368 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Main/Player/PlayerStart.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/Levels/Level.cs" type="Script" id=2]
+[ext_resource path="res://Main/Levels/PuzzleObjects/Spot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main/Levels/PuzzleObjects/ProgTracker.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main/Levels/PuzzleObjects/ActionSpawnMove.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Main/Levels/PuzzleObjects/ActionSpawn.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Main/Levels/PuzzleObjects/Box/Box.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Main/Levels/PuzzleObjects/Obstacle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Main/Levels/PuzzleObjects/SpotToggle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Main/Util/Camera2D.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Main/Levels/PuzzleObjects/ActionDestroyObstacle.cs" type="Script" id=11]
+[ext_resource path="res://Main/Levels/PuzzleObjects/VictoryDoor.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Main/Levels/PuzzleObjects/Action.tscn" type="PackedScene" id=13]
+[ext_resource path="res://GFX/suess_tileset01.png" type="Texture" id=14]
+[ext_resource path="res://Main/Levels/TileMap.cs" type="Script" id=16]
+
+[sub_resource type="TileSet" id=17]
+0/name = "suess_tileset01.png 0"
+0/texture = ExtResource( 14 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 24, 0, 8, 8 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "suess_tileset01.png 1"
+1/texture = ExtResource( 14 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 32, 0, 8, 8 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+3/name = "suess_tileset01.png 3"
+3/texture = ExtResource( 14 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 48, 0, 8, 8 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "suess_tileset01.png 4"
+4/texture = ExtResource( 14 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 24, 8, 8, 8 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "suess_tileset01.png 5"
+5/texture = ExtResource( 14 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 32, 8, 8, 8 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "suess_tileset01.png 6"
+6/texture = ExtResource( 14 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 32, 16, 8, 8 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+7/name = "suess_tileset01.png 7"
+7/texture = ExtResource( 14 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 24, 16, 8, 8 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape_one_way = false
+7/shape_one_way_margin = 0.0
+7/shapes = [  ]
+7/z_index = 0
+8/name = "suess_tileset01.png 8"
+8/texture = ExtResource( 14 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 24, 24, 8, 8 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape_one_way = false
+8/shape_one_way_margin = 0.0
+8/shapes = [  ]
+8/z_index = 0
+9/name = "suess_tileset01.png 9"
+9/texture = ExtResource( 14 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 24, 32, 8, 8 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
+10/name = "suess_tileset01.png 10"
+10/texture = ExtResource( 14 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 48, 32, 8, 8 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
+12/name = "suess_tileset01.png 12"
+12/texture = ExtResource( 14 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 48, 8, 8, 8 )
+12/tile_mode = 0
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shape_offset = Vector2( 0, 0 )
+12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape_one_way = false
+12/shape_one_way_margin = 0.0
+12/shapes = [  ]
+12/z_index = 0
+13/name = "suess_tileset01.png 13"
+13/texture = ExtResource( 14 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 48, 8, 8 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
+14/name = "suess_tileset01.png 14"
+14/texture = ExtResource( 14 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 24, 48, 8, 8 )
+14/tile_mode = 0
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape_one_way = false
+14/shape_one_way_margin = 0.0
+14/shapes = [  ]
+14/z_index = 0
+15/name = "suess_tileset01.png 15"
+15/texture = ExtResource( 14 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 48, 48, 8, 8 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape_one_way = false
+15/shape_one_way_margin = 0.0
+15/shapes = [  ]
+15/z_index = 0
+16/name = "suess_tileset01.png 16"
+16/texture = ExtResource( 14 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 72, 48, 8, 8 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shape_offset = Vector2( 0, 0 )
+16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape_one_way = false
+16/shape_one_way_margin = 0.0
+16/shapes = [  ]
+16/z_index = 0
+17/name = "suess_tileset01.png 17"
+17/texture = ExtResource( 14 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 56, 8, 8 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
+18/name = "suess_tileset01.png 18"
+18/texture = ExtResource( 14 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 8, 56, 8, 8 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shape_offset = Vector2( 0, 0 )
+18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape_one_way = false
+18/shape_one_way_margin = 0.0
+18/shapes = [  ]
+18/z_index = 0
+19/name = "suess_tileset01.png 19"
+19/texture = ExtResource( 14 )
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 72, 56, 8, 8 )
+19/tile_mode = 0
+19/occluder_offset = Vector2( 0, 0 )
+19/navigation_offset = Vector2( 0, 0 )
+19/shape_offset = Vector2( 0, 0 )
+19/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+19/shape_one_way = false
+19/shape_one_way_margin = 0.0
+19/shapes = [  ]
+19/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 15, 7 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+levelNumber = 4
+levelNext = "0-4"
+playerCanMove = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 208.0
+margin_bottom = 240.0
+color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 17 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 8
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 131076, 6, 0, 131077, 6, 0, 131078, 6, 0, 131079, 6, 0, 196612, 6, 0, 196613, 6, 0, 196614, 6, 0, 196615, 6, 0, 262148, 6, 0, 262149, 6, 0, 262150, 6, 0, 262151, 6, 0, 327684, 6, 0, 327685, 6, 0, 327686, 6, 0, 327687, 6, 0, 1310727, 0, 0, 1310728, 1, 0, 1310729, 1, 0, 1310730, 1, 0, 1310731, 1, 0, 1310732, 1, 0, 1310733, 1, 0, 1310734, 1, 0, 1310735, 1, 0, 1310736, 1, 0, 1310737, 1, 0, 1310738, 1, 0, 1310739, 1, 0, 1310740, 3, 0, 1376263, 4, 0, 1376264, 5, 0, 1376265, 5, 0, 1376266, 5, 0, 1376267, 5, 0, 1376268, 5, 0, 1376269, 5, 0, 1376270, 5, 0, 1376271, 5, 0, 1376272, 5, 0, 1376273, 5, 0, 1376274, 5, 0, 1376275, 5, 0, 1376276, 12, 0, 1441799, 7, 0, 1441800, 6, 0, 1441801, 6, 0, 1441802, 6, 0, 1441803, 6, 0, 1441804, 6, 0, 1441805, 6, 0, 1441806, 6, 0, 1441807, 6, 0, 1441808, 6, 0, 1441809, 6, 0, 1441810, 6, 0, 1441811, 6, 0, 1441812, 7, 0, 1507335, 7, 0, 1507336, 6, 0, 1507337, 6, 0, 1507338, 6, 0, 1507339, 6, 0, 1507340, 6, 0, 1507341, 6, 0, 1507342, 6, 0, 1507343, 6, 0, 1507344, 6, 0, 1507345, 6, 0, 1507346, 6, 0, 1507347, 6, 0, 1507348, 7, 0, 1572871, 7, 0, 1572872, 6, 0, 1572873, 6, 0, 1572876, 6, 0, 1572877, 6, 0, 1572878, 6, 0, 1572879, 6, 0, 1572880, 6, 0, 1572881, 6, 0, 1572882, 6, 0, 1572883, 6, 0, 1572884, 7, 0, 1638407, 7, 0, 1638408, 6, 0, 1638409, 6, 0, 1638412, 6, 0, 1638413, 6, 0, 1638414, 6, 0, 1638415, 6, 0, 1638416, 6, 0, 1638417, 6, 0, 1638418, 6, 0, 1638419, 6, 0, 1638420, 7, 0, 1703943, 7, 0, 1703944, 6, 0, 1703945, 6, 0, 1703946, 6, 0, 1703947, 6, 0, 1703948, 6, 0, 1703949, 6, 0, 1703950, 6, 0, 1703951, 6, 0, 1703952, 6, 0, 1703953, 6, 0, 1703954, 6, 0, 1703955, 6, 0, 1703956, 7, 0, 1769479, 7, 0, 1769480, 6, 0, 1769481, 6, 0, 1769482, 6, 0, 1769483, 6, 0, 1769484, 6, 0, 1769485, 6, 0, 1769486, 6, 0, 1769487, 6, 0, 1769488, 6, 0, 1769489, 6, 0, 1769490, 6, 0, 1769491, 6, 0, 1769492, 7, 0, 1835015, 13, 0, 1835016, 1, 0, 1835017, 1, 0, 1835018, 1, 0, 1835019, 1, 0, 1835020, 1, 0, 1835021, 1, 0, 1835022, 1, 0, 1835023, 1, 0, 1835024, 1, 0, 1835025, 1, 0, 1835026, 1, 0, 1835027, 1, 0, 1835028, 16, 0, 1900551, 17, 0, 1900552, 18, 0, 1900553, 18, 0, 1900554, 18, 0, 1900555, 18, 0, 1900556, 18, 0, 1900557, 18, 0, 1900558, 18, 0, 1900559, 18, 0, 1900560, 18, 0, 1900561, 18, 0, 1900562, 18, 0, 1900563, 18, 0, 1900564, 19, 0 )
+script = ExtResource( 16 )
+
+[node name="VictoryDoor" parent="." instance=ExtResource( 12 )]
+position = Vector2( 32, -16 )
+
+[node name="box" parent="." instance=ExtResource( 7 )]
+position = Vector2( 80, 192 )
+
+[node name="ProgTracker4" parent="." instance=ExtResource( 4 )]
+trackerMax = 2
+
+[node name="Spot" parent="ProgTracker4" instance=ExtResource( 3 )]
+position = Vector2( 16, 32 )
+
+[node name="Spot2" parent="ProgTracker4" instance=ExtResource( 3 )]
+position = Vector2( 64, 32 )
+
+[node name="ActionDestroyObstacle" parent="ProgTracker4" instance=ExtResource( 13 )]
+script = ExtResource( 11 )
+obstaclePath = NodePath("Obstacle")
+
+[node name="Obstacle" parent="ProgTracker4/ActionDestroyObstacle" instance=ExtResource( 8 )]
+position = Vector2( 32, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProgTracker4/ActionDestroyObstacle/Obstacle/StaticBody2D" index="0"]
+position = Vector2( 16, 8 )
+shape = SubResource( 16 )
+
+[node name="SpotToggle2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 96, 128 )
+
+[node name="ActionSpawnMove" parent="SpotToggle2" instance=ExtResource( 5 )]
+position = Vector2( 0, -32 )
+spawnFile = ExtResource( 7 )
+
+[node name="StartPoint" parent="SpotToggle2/ActionSpawnMove" index="0"]
+position = Vector2( 112, 0 )
+
+[node name="ProgTracker" parent="." instance=ExtResource( 4 )]
+trackerMax = 1
+
+[node name="Spot" parent="ProgTracker" instance=ExtResource( 3 )]
+position = Vector2( 144, 144 )
+
+[node name="ActionSpawn" parent="ProgTracker" instance=ExtResource( 6 )]
+position = Vector2( 48, 208 )
+
+[node name="ProgTracker2" parent="." instance=ExtResource( 4 )]
+trackerMax = 1
+
+[node name="Spot2" parent="ProgTracker2" instance=ExtResource( 3 )]
+position = Vector2( 144, 128 )
+
+[node name="ActionSpawn" parent="ProgTracker2" instance=ExtResource( 6 )]
+position = Vector2( 16, 208 )
+
+[node name="ProgTracker3" parent="." instance=ExtResource( 4 )]
+trackerMax = 1
+
+[node name="Spot3" parent="ProgTracker3" instance=ExtResource( 3 )]
+position = Vector2( 128, 128 )
+
+[node name="Spot4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 96, 96 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 10 )]
+position = Vector2( 128, 208 )
+editor_draw_limits = true
+
+[node name="PlayerStart" parent="." instance=ExtResource( 1 )]
+position = Vector2( 128, 208 )
+
+[editable path="VictoryDoor"]
+[editable path="ProgTracker4/ActionDestroyObstacle/Obstacle"]
+[editable path="SpotToggle2/ActionSpawnMove"]

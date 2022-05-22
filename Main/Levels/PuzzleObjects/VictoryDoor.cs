@@ -32,6 +32,8 @@ public class VictoryDoor : Node2D
             Player player = body as Player;
             player.stateMachine.TransitionTo("PlayerStates/Disabled");
             audioManager.PlayMusic(data.musicTree.victoryMusic);
+            var stopwatch = GetNode<Stopwatch>("/root/Level/Stopwatch");
+            stopwatch.Stop();
             OnMusicDone();
         }
     }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Main/Camera2D.cs" type="Script" id=1]
+[ext_resource path="res://Main/Util/Camera2D.cs" type="Script" id=1]
 
 [node name="Camera2D" type="Camera2D"]
 position = Vector2( 128, 224 )

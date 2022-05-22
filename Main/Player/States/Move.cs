@@ -65,6 +65,7 @@ public class Move : PlayerState
     }
     public override void Exit()
     {
+        player.stepsTaken += 1;
         parent.Exit();
     }
 

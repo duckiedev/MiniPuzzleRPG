@@ -41,7 +41,7 @@ public class Data : Node
         SaveGame(saveFile,saveData);
         LoadGame(saveFile);
     }
-    public void SaveGame(int saveFile, string saveData)
+    public void SaveGame(int saveFile, string currentLevel, TimeSpan time, int moves)
     {
         var file = new File();
         var error = file.OpenEncryptedWithPass($"user://save{saveFile.ToString()}.dat",File.ModeFlags.Write,"keitaidenjuutelefang");
@@ -105,7 +105,6 @@ public class Data : Node
         pauseScreen = pauseScreenScene.Instance() as PauseScene;
         GetTree().Root.AddChild(pauseScreen);
         GetTree().Root.MoveChild(pauseScreen,GetTree().Root.GetChildCount());
-        //pauseScreen.Position = new Vector2(0,0);
         pauseScreen.Owner = GetTree().Root;
         GetTree().Paused = true;
     }

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spot1.png-e178b1933cf3b2da68a467cdcaa73033.stex"
+path="res://.import/suess_tileset01.png-55714733706c1f41cb7f80427f77264b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GFX/spot1.png"
-dest_files=[ "res://.import/spot1.png-e178b1933cf3b2da68a467cdcaa73033.stex" ]
+source_file="res://GFX/suess_tileset01.png"
+dest_files=[ "res://.import/suess_tileset01.png-55714733706c1f41cb7f80427f77264b.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
