@@ -34,6 +34,7 @@ public class VictoryDoor : Node2D
             audioManager.PlayMusic(data.musicTree.victoryMusic);
             var stopwatch = GetNode<Stopwatch>("/root/Level/Stopwatch");
             stopwatch.Stop();
+            stopwatch.Display();
             OnMusicDone();
         }
     }

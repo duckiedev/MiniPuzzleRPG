@@ -41,13 +41,13 @@ public class Data : Node
         SaveGame(saveFile,saveData);
         LoadGame(saveFile);
     }
-    public void SaveGame(int saveFile, string currentLevel, TimeSpan time, int moves)
+    public void SaveGame(int saveFile, string currentLevel, TimeSpan time = new TimeSpan(), int moves = 0)
     {
         var file = new File();
         var error = file.OpenEncryptedWithPass($"user://save{saveFile.ToString()}.dat",File.ModeFlags.Write,"keitaidenjuutelefang");
         if (error == Error.Ok)
         {
-            file.StoreVar(saveData);
+            file.StoreVar(currentLevel);
             file.Close();
             GetSaveGameData();
         }

@@ -5,6 +5,7 @@ public class Stopwatch : Node
 {
 
     public TimeSpan timeElapsed;
+    public Node2D textbox;
     public float minutes = 0.0f;
     public float seconds = 0.0f;
     private Boolean stopped = true;
@@ -13,8 +14,9 @@ public class Stopwatch : Node
 
     public override void _Ready()
     {
-        label = GetNode<Label>("CanvasLayer/Label");
-        label.Visible = false;
+        textbox = GetNode<Node2D>("CanvasLayer/TextBoxStatic");
+        label = textbox.GetNode<Label>("NinePatchRect/Label");
+        textbox.Visible = false;
         Reset();
     }
     public override void _Process(float delta)
@@ -24,7 +26,7 @@ public class Stopwatch : Node
             seconds += delta % 60;
             timeElapsed = new TimeSpan(hours:0,  minutes: (int)minutes, seconds: (int)seconds);
         }
-        if (label.Visible) label.Text = timeElapsed.ToString("mm' : 'ss") + "\nMoves: " + GetNode<Player>("/root/Player").stepsTaken;
+        if (textbox.Visible) label.Text = timeElapsed.ToString("'T-'mm':'ss") + "\nM-" + GetNode<Player>("/root/Player").stepsTaken;
     }
 
     public void Start()
@@ -46,7 +48,7 @@ public class Stopwatch : Node
 
     public void Display()
     {
-        label.Visible = true;
+        textbox.Visible = true;
     }
 
 }

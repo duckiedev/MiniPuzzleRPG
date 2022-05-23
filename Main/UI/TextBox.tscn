@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GFX/UI/textbox.png" type="Texture" id=1]
+[ext_resource path="res://Main/UI/TextBox.cs" type="Script" id=2]
+[ext_resource path="res://GFX/UI/blinkingcursor1.png" type="Texture" id=3]
+[ext_resource path="res://GFX/UI/blinkingcursor2.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "blink",
+"speed": 5.0
+} ]
+
+[node name="TextBox" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
+margin_right = 160.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/NinePatchRect"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 152.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+max_lines_visible = 3
+
+[node name="Cursor" type="AnimatedSprite" parent="CanvasLayer/NinePatchRect"]
+visible = false
+position = Vector2( 152, 32 )
+frames = SubResource( 1 )
+animation = "blink"
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

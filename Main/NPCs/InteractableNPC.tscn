@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Main/NPCs/NPC Scripts/npc_script.tres" type="Resource" id=1]
+[ext_resource path="res://GFX/Players/jon.png" type="Texture" id=2]
+[ext_resource path="res://Main/NPCs/InteractableNPC.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[node name="InteractableNPC" type="Node2D"]
+position = Vector2( 8, 8 )
+script = ExtResource( 3 )
+npcScript = ExtResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 17
+vframes = 2

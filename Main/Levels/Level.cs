@@ -29,7 +29,7 @@ public class Level : Node2D
                 AddChild(stopwatch);
             }
             stopwatch.Reset();
-            stopwatch.Display();
+            //stopwatch.Display();
             stopwatch.Start();
 
             player.stepsTaken = 0;
