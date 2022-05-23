@@ -5,32 +5,33 @@ public class TextBox : Node2D
 {
     public enum textBoxState
     {
-        INITIALIZED,
+        INITIALIZE,
         WAITFORINPUT,
         STARTED,
         PRINTING,
         PRINTING_FINISHED_MORE_LINES,
         PRINTING_FINISHED,
-        TEXT_CLEARING,
-        TEXT_CLEARING_FINISHED
+        CLEARING,
+        CLEARING_FINISHED,
+        CLOSE
     }
-    public textBoxState state = textBoxState.PRINTING;
+    public textBoxState state = textBoxState.INITIALIZE;
     public Label textLabel;
     public AnimatedSprite cursor;
     public AnimationPlayer animationPlayer;
     public string[] dialogPages;
     private int currentPage = 0;
-    private int currentChunk;
     private Player player;
 
-    private Boolean printing = false;
+
     private float timer = 0;
-    private string textToPrint = "man, thats a lot of text to parse. not sure what to do with it all yet.";
+    private string textToPrint;
     private int currentChar = 0;
     private int lineCharsLeft = 17;
     private int lineCurrent = 0;
     private int lineMaxDisplay = 2;
-    private float SPEED = 0.1f;
+    private int lineCleared = 0;
+    private float SPEED = 0.05f;
 
     public override void _Ready()
     {
@@ -39,36 +40,32 @@ public class TextBox : Node2D
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         player = GetNode<Player>("/root/Player");
         player.stateMachine.TransitionTo("PlayerStates/Disabled");
-        printing = true;
-        //GD.Print(dialogPages);
-        //Start();
     }
 
     public override void _Input(InputEvent @event)
     {
         switch (state)
         {
-            case textBoxState.STARTED:
-
-            break;
-
             case textBoxState.PRINTING:
-            case textBoxState.TEXT_CLEARING:
-                //SPEED = ((Input.GetActionStrength("a")) * 2) * SPEED;
+            case textBoxState.CLEARING:
+                //SPEED = (Input.GetActionStrength("a") * 2) / SPEED;
             break;
 
             case textBoxState.PRINTING_FINISHED_MORE_LINES:
                 if (@event.IsActionPressed("a"))
                 {
                     textLabel.LinesSkipped++;
-                    cursor.Visible = false;
-                    cursor.Stop();
+                    HideCursor();
                     state = textBoxState.PRINTING;
                 }
             break;
 
-            case textBoxState.TEXT_CLEARING_FINISHED:
-
+            case textBoxState.PRINTING_FINISHED:
+                if (@event.IsActionPressed("a"))
+                {
+                    HideCursor();
+                    state = textBoxState.CLEARING;
+                }
             break;
         }
     }
@@ -77,6 +74,20 @@ public class TextBox : Node2D
     {
         switch (state)
         {
+            case textBoxState.INITIALIZE:
+                // reset ALL THE THINGS
+                timer = 0;
+                currentChar = 0;
+                lineCharsLeft = 17;
+                lineCurrent = 0;
+                lineMaxDisplay = 2;
+                lineCleared = 0;
+                textLabel.LinesSkipped = 0;
+                textLabel.Text = "";
+                textToPrint = dialogPages[currentPage];
+                state = textBoxState.PRINTING;
+            break;
+
             case textBoxState.PRINTING:
                 timer += delta;
                 if (timer > SPEED)
@@ -87,18 +98,23 @@ public class TextBox : Node2D
                     {
                         var nextWordCount = 0;
                         // go through each character after the space until the next space
-                        for (int i = 0; i < textToPrint.Length; i++)
+                        for (int i = 0; i < textToPrint.Length - currentChar; i++)
                         {
-                            if (textToPrint[currentChar+1+i] == ' ')
+                            // get the character after the previous, starting after the space
+                            var futureChar = currentChar+1+i;
+                            // if it's a space or the end of the string
+                            if (textToPrint[futureChar] == ' ' || futureChar == textToPrint.Length-1)
                             {
+                                // set the number of characters to next word count
                                 nextWordCount = i;
                                 break;
                             }
                         }
-                        GD.Print($"i:{nextWordCount} lineMax:{lineCharsLeft}");
+                        //GD.Print($"nextWordCount:{nextWordCount} lineCharsLeft:{lineCharsLeft}");
+                        // if the next word count is greater than the characters left on the line
                         if (nextWordCount > lineCharsLeft)
                         {
-                            // go to next line in the text
+                            // add a linebreak to the text
                             textLabel.Text = textLabel.Text + "\n";
                             // go to next line
                             lineCurrent++;
@@ -106,8 +122,9 @@ public class TextBox : Node2D
                             lineCharsLeft = 17;
                             // skip the space
                             currentChar++;
-                            // if we're at the b
+                            // if we're at the end of the maxDisplay
                             if (lineCurrent > lineMaxDisplay) {
+                                ShowCursor();
                                 state = textBoxState.PRINTING_FINISHED_MORE_LINES;
                             }
                         }
@@ -120,78 +137,62 @@ public class TextBox : Node2D
 
                 if (currentChar == textToPrint.Length)
                 {
-                    GD.Print("Finished");
+                    ShowCursor();
                     state = textBoxState.PRINTING_FINISHED;
                     currentChar = 0;
-                    textToPrint = "";
-                    printing = false;
                     timer = 0;
                 }
             break;
 
-            case textBoxState.PRINTING_FINISHED_MORE_LINES:
+            case textBoxState.CLEARING:
+                timer += delta;
+                if (timer > SPEED)
+                {
+                    if (lineCleared <= lineMaxDisplay)
+                    {
+                        lineCleared++;
+                        textLabel.LinesSkipped++;
+                        timer = 0;
+                    }
+                    else
+                    {
+                        state = textBoxState.CLEARING_FINISHED;
+                    }
+                }
+            break;
 
+            case textBoxState.CLEARING_FINISHED:
+                if (currentPage != dialogPages.Length-1)
+                {
+                    currentPage++;
+                    state = textBoxState.INITIALIZE;
+                }
+                else 
+                {
+                    state = textBoxState.CLOSE;
+                }
             break;
-            case textBoxState.PRINTING_FINISHED:
-                cursor.Visible = true;
-                cursor.Play();
-            break;
-            default:
+
+            case textBoxState.CLOSE:
+                player.stateMachine.TransitionTo("PlayerStates/Idle");
+                QueueFree();
             break;
         }
     }
-    public async void Start()
+    private void ShowCursor()
     {
-        GD.Print("Starting with page " + currentPage);
-        state = textBoxState.STARTED;
-        // reset the box
-        textLabel.LinesSkipped = 0;
-        textLabel.PercentVisible = 0;
-        // set the text
-        textLabel.Text = dialogPages[currentPage];
-        // get the text vars
-        if (textLabel.GetLineCount() > textLabel.MaxLinesVisible)
-        {
-            GD.Print("MORE TEXT");
-            currentChunk = textLabel.GetTotalCharacterCount() / textLabel.GetLineCount();
-            GD.Print(currentChunk);
-        }
-
-        // display the text
-       //state = textBoxState.TEXT_TYPING;
-        //animationPlayer.Play("type_text");
-        //await ToSignal(animationPlayer,"animation_finished");
-        //TypingFinished();
+        cursor.Visible = true;
+        cursor.Play();
     }
-    public void TypingFinished()
-    {
-        //state = textBoxState.TEXT_TYPING_FINISHED;
-
-        // wait for _Input
-    }
-    public async void ClearTextbox()
+    private void HideCursor()
     {
         cursor.Stop();
         cursor.Visible = false;
-        state = textBoxState.TEXT_CLEARING;
-        animationPlayer.Play("clear_textbox");
-        await ToSignal(animationPlayer,"animation_finished");
-        GD.Print("Clearing textbox for " + currentPage + " out of " + dialogPages.Length);
-        if (currentPage != dialogPages.Length)
-        {
-            currentPage++;
-            GD.Print(currentPage);
-            Start();
-        }
-        else 
-        {
-            CloseTextbox();
-        }
+    }
+    public async void Start()
+    {
+
     }
 
-    public void CloseTextbox()
-    {
-        player.stateMachine.TransitionTo("PlayerStates/Idle");
-        QueueFree();
-    }
+
 }
