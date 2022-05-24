@@ -22,6 +22,8 @@ public class TextBox : Node2D
     public string[] dialogPages;
     private int currentPage = 0;
     private Player player;
+    private AudioManager audioManager;
+    private Data data;
 
 
     private float timer = 0;
@@ -31,10 +33,14 @@ public class TextBox : Node2D
     private int lineCurrent = 0;
     private int lineMaxDisplay = 2;
     private int lineCleared = 0;
+    private int lastCount;
     private float SPEED = 0.05f;
+    private int pauseChar = 0;
 
     public override void _Ready()
     {
+        data = GetNode<Data>("/root/Data");
+        audioManager = GetNode<AudioManager>("/root/AudioManager");
         textLabel = GetNode<Label>("CanvasLayer/NinePatchRect/Label");
         cursor = GetNode<AnimatedSprite>("CanvasLayer/NinePatchRect/Cursor");
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -46,14 +52,10 @@ public class TextBox : Node2D
     {
         switch (state)
         {
-            case textBoxState.PRINTING:
-            case textBoxState.CLEARING:
-                //SPEED = (Input.GetActionStrength("a") * 2) / SPEED;
-            break;
-
             case textBoxState.PRINTING_FINISHED_MORE_LINES:
                 if (@event.IsActionPressed("a"))
                 {
+                    audioManager.PlaySFX(data.sfxTree.dialogBlipDone);
                     textLabel.LinesSkipped++;
                     HideCursor();
                     state = textBoxState.PRINTING;
@@ -63,6 +65,7 @@ public class TextBox : Node2D
             case textBoxState.PRINTING_FINISHED:
                 if (@event.IsActionPressed("a"))
                 {
+                    audioManager.PlaySFX(data.sfxTree.dialogBlipDone);
                     HideCursor();
                     state = textBoxState.CLEARING;
                 }
@@ -72,6 +75,14 @@ public class TextBox : Node2D
 
     public override void _Process(float delta)
     {
+        if (Input.GetActionStrength("a") == 1)
+        {
+            SPEED = 0.03f + (pauseChar * 0.1f);
+        }
+        else
+        {
+            SPEED = 0.1f + (pauseChar * 0.5f);
+        }
         switch (state)
         {
             case textBoxState.INITIALIZE:
@@ -85,6 +96,7 @@ public class TextBox : Node2D
                 textLabel.LinesSkipped = 0;
                 textLabel.Text = "";
                 textToPrint = dialogPages[currentPage];
+                lastCount = textLabel.Text.Length;
                 state = textBoxState.PRINTING;
             break;
 
@@ -92,6 +104,7 @@ public class TextBox : Node2D
                 timer += delta;
                 if (timer > SPEED)
                 {
+                    pauseChar = 0;
                     // check for line break
                     // check for a space
                     if (textToPrint[currentChar] == ' ')
@@ -129,8 +142,13 @@ public class TextBox : Node2D
                             }
                         }
                     }
+                    if (textToPrint[currentChar] == '.' || textToPrint[currentChar] == ',' || textToPrint[currentChar] == '!' || textToPrint[currentChar] == '?')
+                    {
+                        pauseChar = 1;
+                    }
                     timer = 0;
                     textLabel.Text = textLabel.Text + textToPrint[currentChar];
+                    audioManager.CallDeferred("PlaySFX",data.sfxTree.dialogBlip01);
                     currentChar++;
                     lineCharsLeft--;
                 }
@@ -139,6 +157,7 @@ public class TextBox : Node2D
                 {
                     ShowCursor();
                     state = textBoxState.PRINTING_FINISHED;
+                    pauseChar = 0;
                     currentChar = 0;
                     timer = 0;
                 }
@@ -146,7 +165,7 @@ public class TextBox : Node2D
 
             case textBoxState.CLEARING:
                 timer += delta;
-                if (timer > SPEED)
+                if (timer > SPEED * 2)
                 {
                     if (lineCleared <= lineMaxDisplay)
                     {
@@ -189,10 +208,5 @@ public class TextBox : Node2D
         cursor.Stop();
         cursor.Visible = false;
     }
-    public async void Start()
-    {
-
-    }
-
 
 }

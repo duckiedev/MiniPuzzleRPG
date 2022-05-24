@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=12 format=2]
 
 [ext_resource path="res://Main/Data/SfxTree.cs" type="Script" id=1]
 [ext_resource path="res://Sound/sfx/stepSwitchOff.wav" type="AudioStream" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Sound/sfx/moveBox.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sound/sfx/waveBox.wav" type="AudioStream" id=8]
 [ext_resource path="res://Sound/sfx/sfxSelect.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sound/sfx/dialogDone.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sound/sfx/dialogBlip.wav" type="AudioStream" id=11]
 
 [resource]
 script = ExtResource( 1 )
@@ -20,3 +22,5 @@ boxGroundHoleSFX = ExtResource( 6 )
 stepSwitchOn = ExtResource( 3 )
 stepSwitchOff = ExtResource( 2 )
 boxWaterFloat = ExtResource( 8 )
+dialogBlip01 = ExtResource( 11 )
+dialogBlipDone = ExtResource( 10 )

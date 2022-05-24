@@ -11,4 +11,6 @@ public class SfxTree : Resource
     [Export] public AudioStream stepSwitchOn;
     [Export] public AudioStream stepSwitchOff;
     [Export] public AudioStream boxWaterFloat;
+    [Export] public AudioStream dialogBlip01;
+    [Export] public AudioStream dialogBlipDone;
 }
