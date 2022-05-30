@@ -105,7 +105,8 @@ public class Box : KinematicBody2D
 
     public void Destroy()
     {
-        var player = GetTree().Root.GetNode<Player>("Player");
+        GD.Print("desTROY!");
+        var player = GetNode<Player>("/root/Player");
         player.stateMachine.TransitionTo("PlayerStates/Idle");
         CallDeferred("queue_free");
     }

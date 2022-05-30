@@ -9,11 +9,14 @@ public class VictoryDoor : Node2D
     private AudioManager audioManager;
     private SceneChanger sceneChanger;
     private Area2D area2D;
-    public override void _Ready()
+    private Stopwatch stopwatch;
+    public async override void _Ready()
     {
         data = GetNode<Data>("/root/Data");
         audioManager = GetNode<AudioManager>("/root/AudioManager");
         sceneChanger = GetNode<SceneChanger>("/root/SceneChanger");
+        await ToSignal(GetNode<Level>("/root/Level"),"ready");
+        stopwatch = GetNode<Stopwatch>("/root/Level/Stopwatch");
         currentLevel = GetParent<Level>();
         area2D = GetChild<Area2D>(0);
         DelayedEnable(); // This is a workaround for the VictoryDoor sending off a signal when the tree restarts
@@ -32,7 +35,6 @@ public class VictoryDoor : Node2D
             Player player = body as Player;
             player.stateMachine.TransitionTo("PlayerStates/Disabled");
             audioManager.PlayMusic(data.musicTree.victoryMusic);
-            var stopwatch = GetNode<Stopwatch>("/root/Level/Stopwatch");
             stopwatch.Stop();
             stopwatch.Display();
             OnMusicDone();
@@ -42,7 +44,9 @@ public class VictoryDoor : Node2D
     public async void OnMusicDone()
     {
         await ToSignal(audioManager.musicPlayer,"finished");
-        data.SaveGame(data.currentSave,currentLevel.levelNext);
+
+        data.SaveGame(data.currentSave,currentLevel.levelNext,stopwatch.timeElapsed,GetNode<Player>("/root/Player").stepsTaken);
+
         sceneChanger.ChangeScene($"res://Main/Levels/Level{currentLevel.levelNext}.tscn");
     }
 }

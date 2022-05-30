@@ -7,12 +7,12 @@ public class Player : KinematicBody2D
     {
         IDLE,
         MOVE,
-        DISABLED
+        DISABLED,
+        WARP
     }
 
     public StateMachine stateMachine;
     public PlayerStates state;
-
     public int stepsTaken;
 
     public override void _Ready()
