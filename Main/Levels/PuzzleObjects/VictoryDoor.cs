@@ -45,8 +45,8 @@ public class VictoryDoor : Node2D
     {
         await ToSignal(audioManager.musicPlayer,"finished");
 
-        data.SaveGame(data.currentSave,currentLevel.levelNext,stopwatch.timeElapsed,GetNode<Player>("/root/Player").stepsTaken);
+        data.SaveGame(data.currentSave,data.currentLevel,data.TimeToString(stopwatch.timeElapsed),GetNode<Player>("/root/Player").stepsTaken);
 
-        sceneChanger.ChangeScene($"res://Main/Levels/Level{currentLevel.levelNext}.tscn");
+        sceneChanger.ChangeScene(data.currentLevel+1);
     }
 }

@@ -34,7 +34,7 @@ public class LoadSaveGame : OptionLabel
             {
                 data.LoadGame(saveFile);
             }
-                GetNode<SceneChanger>("/root/SceneChanger").ChangeScene(data.currentLevel,true);
+                GetNode<SceneChanger>("/root/SceneChanger").ChangeScene(data.currentLevel);
                 GetNode<AudioManager>("/root/AudioManager").PlaySFX(data.sfxTree.selectSFX);
         }
     }

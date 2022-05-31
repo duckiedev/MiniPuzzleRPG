@@ -8,11 +8,14 @@ public class Data : Node
     [Export] public SfxTree sfxTree;
     [Export] public MusicTree musicTree;
     [Export] public BitmapFont mainFont;
-    public string currentLevel;
+    public int currentLevel = 0;
+    public int nextLevel = 1;
     public int currentSave = 0;
     public String[] saveFileProgress = {"","",""};
     public PackedScene pauseScreenScene;
     public PauseScene pauseScreen;
+
+    [Export] public String[] levelArr = {"0-1","0-2","0-3","0-4","1-1"};
 
     public override void _Ready()
     {
@@ -34,10 +37,10 @@ public class Data : Node
         GetSaveGameData();
     }
 
-    public Godot.Collections.Dictionary CreateSaveLevelData(TimeSpan time, int moves)
+    public Godot.Collections.Dictionary CreateSaveLevelData(String time, int moves)
     {
         var saveLevelData = new Godot.Collections.Dictionary();
-        saveLevelData.Add("time",TimeToString(time));
+        saveLevelData.Add("time",time);
         saveLevelData.Add("moves",moves);
         return saveLevelData;
     }
@@ -54,58 +57,75 @@ public class Data : Node
 
     public void NewGame(int saveFile)
     {
-        currentLevel = "0-1";
-        SaveGame(saveFile,currentLevel,TimeSpan.Zero,0);
+        currentLevel = 0;
+        nextLevel = 1;
+        SaveGame(saveFile,currentLevel,null,-1);
         LoadGame(saveFile);
     }
 
-    public void SaveGame(int saveFile, String currentLevel, TimeSpan time, int moves)
+    public void SaveGame(int saveFile, int curLevel, String time, int moves)
     {
+        var currentLevelStr = levelArr[curLevel];
+        var nextLevelStr = levelArr[curLevel+1];
+        // Create the file if it doesn't exist
         var file = new File();
-        var error = file.Open($"user://save{saveFile.ToString()}.dat",File.ModeFlags.WriteRead);//,"keitaidenjuutelefang");
-        GD.Print(error);
+        if (!file.FileExists($"user://save{saveFile.ToString()}.dat"))
+        {
+            var newFileError = file.Open($"user://save{saveFile.ToString()}.dat",File.ModeFlags.Write);//,"keitaidenjuutelefang");
+            if (newFileError == Error.Ok)
+            {
+                var saveFileData = new Godot.Collections.Dictionary();
+                saveFileData.Add("lastLevel",curLevel);
+
+                for (int i = 0; i < levelArr.Length; i++)
+                {
+                    saveFileData.Add(i, CreateSaveLevelData(time,moves));
+                }
+                file.StoreVar(saveFileData);
+            }
+        }
+        file.Close();
+
+        // Read the existing data
+        file = new File();
+        var error = file.Open($"user://save{saveFile.ToString()}.dat",File.ModeFlags.ReadWrite);//,"keitaidenjuutelefang");
         if (error == Error.Ok)
         {
             // get the save file data
             var saveFileData = file.GetVar() as Godot.Collections.Dictionary;
-            if (saveFileData is null)
-            {
-                saveFileData = new Godot.Collections.Dictionary();
-            }
-            // check the last level
-            var saveFileDataLastLevel = saveFileData["lastLevel"] as String;
             // if it doesn't exist, add it
-            if (saveFileDataLastLevel is null)
+            if ((int)saveFileData["lastLevel"] != nextLevel)
             {
-                GD.Print("no lastLevel");
-                saveFileData.Add("lastLevel",currentLevel);
-            } // if it isn't the same, update it
-            else if (saveFileDataLastLevel != currentLevel)
-            {
-                saveFileData["lastLevel"] = currentLevel;
+                saveFileData["lastLevel"] = nextLevel;
             }
-            // check specific level data, if it doesnt exist, add it
-            if (saveFileData[currentLevel] is null) {
-                saveFileData.Add(currentLevel, CreateSaveLevelData(time,moves));
-            }
-            else // if it does, see if it's a better score and save
+
+            var currentLevelData = saveFileData[curLevel] as Godot.Collections.Dictionary;
+            var currentLevelTime = currentLevelData["time"] as String;
+            var currentLevelMoves = (int)currentLevelData["moves"];
+
+            GD.Print(currentLevelData);
+            GD.Print("actual data: " + moves + " " + time);
+            if (currentLevelTime == null && currentLevelMoves == -1)
             {
-                var currentLevelData = saveFileData[currentLevel] as Godot.Collections.Dictionary;
-                var currentLevelTime = currentLevelData["time"] as String;
-                var currentLevelMoves = (int)currentLevelData["moves"];
-                if (StringToTime(currentLevelTime) >= time && currentLevelMoves >= moves)
+                saveFileData[curLevel] = CreateSaveLevelData(time,moves);
+            } else {
+                if (StringToTime(currentLevelTime) >= StringToTime(time) && currentLevelMoves >= moves)
                 {
-                    saveFileData[currentLevel] = CreateSaveLevelData(time,moves);
+                    saveFileData[curLevel] = CreateSaveLevelData(time,moves);
                 }
             }
+
+            file.Seek(0);
             file.StoreVar(saveFileData);
-            file.Close();
+
             GetSaveGameData();
+            CheckData(saveFile);
         }
         else
         {
             GD.Print("ERROR WITH FILE SAVE");
         }
+        file.Close();
     }
 
     public void LoadGame(int saveFile)
@@ -119,13 +139,25 @@ public class Data : Node
                 currentSave = saveFile;
                 var saveFileData = file.GetVar() as Godot.Collections.Dictionary;
                 // check the last level
-                currentLevel = saveFileData["lastLevel"] as String;
-                //GD.Print(currentLevel);
-                file.Close();
+                currentLevel = (int)saveFileData["lastLevel"];
             }
         }
+        file.Close();
     }
 
+    public void CheckData(int saveFile)
+    {
+        var file = new File();
+        if (file.FileExists($"user://save{saveFile.ToString()}.dat"))
+        {
+            var error = file.Open($"user://save{saveFile.ToString()}.dat",File.ModeFlags.Read);//,"keitaidenjuutelefang");
+            if (error == Error.Ok)
+            {
+                GD.Print("Checking saved data: " + file.GetVar());
+            }
+        }
+        file.Close();
+    }
     public void GetSaveGameData()
     {
         int files = 3;
@@ -138,7 +170,7 @@ public class Data : Node
                 if (error == Error.Ok)
                 {
                     var saveFileData = file.GetVar() as Godot.Collections.Dictionary;
-                    saveFileProgress[i] = saveFileData["lastLevel"] as String;
+                    saveFileProgress[i] = levelArr[(int)saveFileData["lastLevel"]] as String;
                 }
                 else
                 {
