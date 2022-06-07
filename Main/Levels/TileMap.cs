@@ -4,34 +4,29 @@ using System;
 public class TileMap : Godot.TileMap
 {
     public enum tiles {
-        FLOOR,
-        WALL,
-        WATER,
-        WATER_LEDGE,
-        BRIDGE_VERTICAL,
-        STATUE_TOP,
-        STATUE_BOTTOM,
-        WALL_TOP,
-        FLOOR_TL,
-        FLOOR_TR,
-        FLOOR_BL,
-        FLOOR_BR,
-        BOX_BRIDGE_LEDGE,
-        LEDGE,
-        BOX_BRIDGE_WATER,
-        SPOT_TOGGLE_DOWN,
-        SPOT_TOGGLE_UP,
-        BREAKABLE_FLOOR,
-        BRIDGE_HORIZONTAL
+        FLOOR = 2,
+        WATER = 3,
+        WATER_LEDGE = 4,
+        BREAKABLE_FLOOR = 8,
+        BRIDGE_VERTICAL = 9,
+        BRIDGE_HORIZONTAL = 10,
+        SPOT_TOGGLE_UP = 14,
+        SPOT_TOGGLE_DOWN = 11,
+        BOX_BRIDGE_LEDGE = 12,
+        BOX_BRIDGE_WATER = 13,
+        TABLET_LEFT = 15,
+        TABLET_RIGHT = 16,
+        WALL = 17,
+        LEDGE = 18
     }
     public override void _Ready()
     {
         
     }
 
-    public void SwapTile(Node body, Vector2 position, int tileIndex)
+    public void SwapTile(Node body, Vector2 position, TileMap.tiles tileIndex)
     {
-        SetCellv(position/CellSize, tileIndex);
+        SetCellv(position/CellSize, (int)tileIndex);
     }
 
 }

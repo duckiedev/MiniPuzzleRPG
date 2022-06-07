@@ -46,7 +46,7 @@ public class Spot : Area2D
         }
 
         await ToSignal(body.GetNode<GridMoveTween>("GridMoveTween"),"tween_completed");
-        if (tileIndex != 0) tileMap.SwapTile(body,this.Position,((int)tileIndex));
+        if (tileIndex != 0) tileMap.SwapTile(body,this.Position,tileIndex);
 
         if (destroy) 
         {

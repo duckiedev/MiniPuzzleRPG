@@ -33,7 +33,7 @@ public class SpotToggle : Area2D
     {
         if (body.IsClass("TileMap")) return;
 
-        tileMap.SwapTile(body,Position,15);
+        tileMap.SwapTile(body,Position,TileMap.tiles.SPOT_TOGGLE_DOWN);
         audioManager.PlaySFX(data.sfxTree.stepSwitchOn);
 
         if (targetNode is Obstacle)
@@ -50,7 +50,7 @@ public class SpotToggle : Area2D
     public void _on_SpotToggle_body_exited(Node body)
     {
         if (body.IsClass("TileMap")) return;
-        tileMap.SwapTile(body,this.Position,16);
+        tileMap.SwapTile(body,this.Position,TileMap.tiles.SPOT_TOGGLE_UP);
         audioManager.PlaySFX(data.sfxTree.stepSwitchOff);
         if (targetNode is Obstacle)
         {

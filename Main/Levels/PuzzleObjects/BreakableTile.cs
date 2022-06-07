@@ -20,7 +20,7 @@ public class BreakableTile : Area2D
     {
         if (body.IsInGroup("Player")) {
             audioManager.PlaySFX(data.sfxTree.boxWaterSFX);
-            int tileIndex = ((int)TileMap.tiles.WATER_LEDGE);
+            TileMap.tiles tileIndex = TileMap.tiles.WATER_LEDGE;
             tileMap.SwapTile(body,this.Position,tileIndex);
             Godot.Collections.Array list = GetChildren();
             for (int i = 0; i < list.Count; i++)
@@ -28,7 +28,7 @@ public class BreakableTile : Area2D
                 Node item = (Node)list[i];
                 if (item.Name.StartsWith("TileTarget")) {
                     Vector2 itemPos = this.Position + (Vector2)item.Get("position");
-                    int itemTileIndex = (int)item.Get("tileIndex");
+                    TileMap.tiles itemTileIndex = (TileMap.tiles)item.Get("tileIndex");
                     tileMap.SwapTile(body,itemPos,itemTileIndex);
                 }
             }

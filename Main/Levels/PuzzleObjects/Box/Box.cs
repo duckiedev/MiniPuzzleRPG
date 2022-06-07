@@ -61,40 +61,44 @@ public class Box : KinematicBody2D
             if (objNode.IsClass("Area2D")) colSpot = true;
         }
 
+        GD.Print("Colliding with TileMap? : " + colTileMap + " Colliding with Spot? : " + colSpot);
+        GD.Print("Object Array : " + objArray);
         if (colTileMap == false && colSpot == false)
         {
             return true;
         }
+
+        if (colTileMap == false && colSpot == true) 
+        {
+            return true;
+        }
+
+        var tileMap = (TileMap)objArray[0];
+        var tileCheck = (TileMap.tiles)tileMap.GetCellv((Position + vectorPos)/Data.gridSize);
         // if theres both a tilemap collision and a spot collision
         // ignore the spot, move anyway if the tile allows it
         if (colTileMap == true && colSpot == true) {
-            TileMap tileMap = (TileMap)objArray[0];
-            switch (tileMap.GetCellv((Position + vectorPos)/Data.gridSize))
+            switch (tileCheck)
             {
-                case 2: // water
-                case 3:  // water ledge
-                case 13: // ground hole
+                case TileMap.tiles.WATER:
+                case TileMap.tiles.WATER_LEDGE:
+                case TileMap.tiles.LEDGE:
                     return true;
                 //break;
             }
         }
 
         if (colTileMap == true && colSpot == false) {
-            TileMap tileMap = (TileMap)objArray[0];
-            switch (tileMap.GetCellv((Position + vectorPos)/Data.gridSize))
+            switch (tileCheck)
             {
-                case 2: // water
-                case 3:  // water ledge
-                case 13: // ground hole
+                case TileMap.tiles.WATER:
+                case TileMap.tiles.WATER_LEDGE:
+                case TileMap.tiles.LEDGE:
                     reset = true;
                 return true;
             }
         } 
 
-        if (colTileMap == false && colSpot == true) 
-        {
-            return true;
-        }
         return false;
     }
     public void ResetBox()
@@ -105,7 +109,6 @@ public class Box : KinematicBody2D
 
     public void Destroy()
     {
-        GD.Print("desTROY!");
         var player = GetNode<Player>("/root/Player");
         player.stateMachine.TransitionTo("PlayerStates/Idle");
         CallDeferred("queue_free");

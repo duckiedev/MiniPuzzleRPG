@@ -56,6 +56,7 @@ public class SceneChanger : CanvasLayer
 
     public void ChangeScene(int level, float delay = 0.2f)
     {
+        GD.Print(level);
         if (level != 0) {
             data.currentLevel+=1;
             data.nextLevel+=1;

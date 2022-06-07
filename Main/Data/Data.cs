@@ -14,6 +14,7 @@ public class Data : Node
     public String[] saveFileProgress = {"","",""};
     public PackedScene pauseScreenScene;
     public PauseScene pauseScreen;
+    public Boolean newGame = true;
 
     [Export] public String[] levelArr = {"0-1","0-2","0-3","0-4","1-1"};
 
@@ -57,16 +58,16 @@ public class Data : Node
 
     public void NewGame(int saveFile)
     {
+        newGame = true;
         currentLevel = 0;
         nextLevel = 1;
         SaveGame(saveFile,currentLevel,null,-1);
         LoadGame(saveFile);
+        newGame = false;
     }
 
     public void SaveGame(int saveFile, int curLevel, String time, int moves)
     {
-        var currentLevelStr = levelArr[curLevel];
-        var nextLevelStr = levelArr[curLevel+1];
         // Create the file if it doesn't exist
         var file = new File();
         if (!file.FileExists($"user://save{saveFile.ToString()}.dat"))
@@ -94,7 +95,7 @@ public class Data : Node
             // get the save file data
             var saveFileData = file.GetVar() as Godot.Collections.Dictionary;
             // if it doesn't exist, add it
-            if ((int)saveFileData["lastLevel"] != nextLevel)
+            if ((int)saveFileData["lastLevel"] != nextLevel && !newGame)
             {
                 saveFileData["lastLevel"] = nextLevel;
             }
@@ -103,8 +104,6 @@ public class Data : Node
             var currentLevelTime = currentLevelData["time"] as String;
             var currentLevelMoves = (int)currentLevelData["moves"];
 
-            GD.Print(currentLevelData);
-            GD.Print("actual data: " + moves + " " + time);
             if (currentLevelTime == null && currentLevelMoves == -1)
             {
                 saveFileData[curLevel] = CreateSaveLevelData(time,moves);
@@ -188,7 +187,6 @@ public class Data : Node
     public void PauseGame()
     {
         GetNode<AudioManager>("/root/AudioManager").PauseMusic();
-
         pauseScreen = pauseScreenScene.Instance() as PauseScene;
         GetTree().Root.AddChild(pauseScreen);
         GetTree().Root.MoveChild(pauseScreen,GetTree().Root.GetChildCount());
