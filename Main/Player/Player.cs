@@ -3,10 +3,14 @@ using System;
 
 public class Player : KinematicBody2D
 {
+    [Export] public int zFloor = 0;
+    public int zCurrent = 0;
+
     public enum PlayerStates
     {
         IDLE,
         MOVE,
+        DROP,
         DISABLED,
         WARP
     }
@@ -20,4 +24,5 @@ public class Player : KinematicBody2D
         stateMachine = GetNode<StateMachine>("StateMachine");
         AddToGroup("Player",true);
     }
+
 }

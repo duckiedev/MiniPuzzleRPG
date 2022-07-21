@@ -9,11 +9,11 @@ public class Level : Node2D
     [Export] public string levelMusic = "levelMusic";
     [Export] public Boolean playerCanMove = false;
 
+
     public Stopwatch stopwatch;
 
     private Player player;
     private PlayerStart playerStart;
-
     public override void _Ready()
     {
         stopwatch = GetNodeOrNull<Stopwatch>("/root/Stopwatch");
@@ -35,7 +35,7 @@ public class Level : Node2D
             player.stepsTaken = 0;
             player.Position = playerStart.GlobalPosition;
             GetTree().Root.MoveChild(player,GetTree().Root.GetChildCount());
-            player.stateMachine.TransitionTo("PlayerStates/Idle");
+            //player.stateMachine.TransitionTo("PlayerStates/Idle");
         }
         else
         {

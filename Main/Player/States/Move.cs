@@ -11,43 +11,7 @@ public class Move : PlayerState
         {
             var dir = (Vector2)msg["dir"];
             var vectorPos = dir * Data.gridSize;
-            animationTree.Set("parameters/idle/blend_position", dir);
-            animationTree.Set("parameters/push/blend_position", dir);
-            
-            ray.CastTo = vectorPos;
-            ray.ForceRaycastUpdate();
-            if (!ray.IsColliding())
-            {
-                MovePlayer(vectorPos);
-                audioManager.PlaySFX(data.sfxTree.playerMoveSFX);
-            }
-            else
-            {
-                var collider = (Node)ray.GetCollider();
-                if (collider.IsInGroup("Box"))
-                {
-                    Box colliderBox = collider as Box;
-                    if (!colliderBox.tween.IsActive())
-                    {
-                        if (colliderBox.CheckCollision(dir))
-                        {
-                            var args = new Godot.Collections.Dictionary();
-                            args.Add("vectorPos",vectorPos);
-                            colliderBox.stateMachine.TransitionTo("BoxStates/BoxPushed",args);
-                            audioManager.PlaySFX(data.sfxTree.boxMoveSFX);
-                            CallDeferred("MovePlayer",vectorPos);
-                        }
-                        else
-                        {
-                            stateMachine.TransitionTo("PlayerStates/Idle");
-                        }
-                    }
-                }
-                else
-                {
-                    stateMachine.TransitionTo("PlayerStates/Idle");
-                }
-            }
+            MovePlayer(vectorPos);
         }
         parent.Enter();
     }
@@ -84,6 +48,7 @@ public class Move : PlayerState
             );
             tween.Start();
             tweenStarted = true;
+            audioManager.PlaySFX(data.sfxTree.playerMoveSFX);
         }
     }
 }

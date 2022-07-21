@@ -16,7 +16,7 @@ public class Data : Node
     public PauseScene pauseScreen;
     public Boolean newGame = true;
 
-    [Export] public String[] levelArr = {"0-1","0-2","0-3","0-4","1-1"};
+    [Export] public String[] levelArr = {"0-5","0-2","0-3","0-4","0-5","1-1"};
 
     public override void _Ready()
     {
@@ -32,6 +32,15 @@ public class Data : Node
             }
             ResourceSaver.Save("res://GFX/UI/font.tres",mainFont);
         }
+
+
+        var bgMapRes = ResourceLoader.Load<PackedScene>("res://Main/TilePalette/BGMAP.tscn");
+        var bgMap = bgMapRes.Instance();
+        Viewport viewPort = bgMap.GetNode<Viewport>("Viewport");
+        var tilesetTextureData = viewPort.GetTexture().GetData();
+        //var tilesetTexture = new ImageTexture();
+        //tilesetTexture.CreateFromImage(tilesetTextureData);
+        tilesetTextureData.SavePng("res://GFX/tilesetrendered01.png");
 
         pauseScreenScene = ResourceLoader.Load<PackedScene>("res://Main/UI/PauseScene.tscn");
 

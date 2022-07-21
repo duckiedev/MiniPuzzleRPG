@@ -1,0 +1,194 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://GFX/Palettes/Tiles/tilebrown02.png" type="Texture" id=1]
+[ext_resource path="res://GFX/Palettes/Tiles/tilebrownwood.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Palettes/Tiles/tilewaterblue.png" type="Texture" id=4]
+[ext_resource path="res://Main/TilePalette/TilePaletteBlock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GFX/tileset01.png" type="Texture" id=6]
+[ext_resource path="res://GFX/Palettes/Tiles/tilebasepal.png" type="Texture" id=7]
+
+[sub_resource type="Shader" id=49]
+code = "shader_type canvas_item;
+
+uniform bool screen_mode = true;
+uniform int num_colors;
+uniform float precision : hint_range(0.0, 1.0, 0.1) = 0.1;
+
+uniform sampler2D palette_in;
+uniform sampler2D palette_out;
+
+vec4 swap_color(vec4 color) {
+	float inc = 1.0 / float(num_colors); 
+	for (float i = 0.0; i < 1.0; i += inc) {
+		vec2 uv = vec2(i, 0.0);
+		vec4 color_in = texture(palette_in, uv);
+		if (distance(color, color_in) <= precision) {
+			return texture(palette_out, uv);
+		}
+	}
+	return color;
+}
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	if (screen_mode) {
+		color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	}
+	COLOR = swap_color(color);
+}"
+
+[sub_resource type="ShaderMaterial" id=50]
+shader = SubResource( 49 )
+shader_param/screen_mode = true
+shader_param/num_colors = 4
+shader_param/precision = 0.1
+shader_param/palette_in = ExtResource( 7 )
+shader_param/palette_out = ExtResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=51]
+shader = SubResource( 49 )
+shader_param/screen_mode = true
+shader_param/num_colors = 4
+shader_param/precision = 0.1
+shader_param/palette_in = ExtResource( 7 )
+shader_param/palette_out = ExtResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=52]
+shader = SubResource( 49 )
+shader_param/screen_mode = true
+shader_param/num_colors = 4
+shader_param/precision = 0.1
+shader_param/palette_in = ExtResource( 7 )
+shader_param/palette_out = ExtResource( 2 )
+
+[node name="BGMAP" type="Node2D"]
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 144, 90 )
+transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="Viewport"]
+
+[node name="tiles" type="Sprite" parent="Viewport/Camera2D"]
+position = Vector2( 128, 40 )
+texture = ExtResource( 6 )
+
+[node name="TilePalettes" type="Node2D" parent="Viewport/Camera2D/tiles"]
+position = Vector2( -128, -40 )
+
+[node name="walls" type="Node2D" parent="Viewport/Camera2D/tiles/TilePalettes"]
+
+[node name="wallTilePaletteBlock2" parent="Viewport/Camera2D/tiles/TilePalettes/walls" instance=ExtResource( 5 )]
+margin_right = 48.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 24, 32 )
+
+[node name="wallTilePaletteBlock3" parent="Viewport/Camera2D/tiles/TilePalettes/walls" instance=ExtResource( 5 )]
+margin_left = 48.0
+margin_right = 96.0
+rect_pivot_offset = Vector2( 24, 32 )
+
+[node name="wallTilePaletteBlock4" parent="Viewport/Camera2D/tiles/TilePalettes/walls" instance=ExtResource( 5 )]
+margin_left = 48.0
+margin_top = 32.0
+margin_right = 96.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 24, 32 )
+
+[node name="wallTilePaletteBlock5" parent="Viewport/Camera2D/tiles/TilePalettes/walls" instance=ExtResource( 5 )]
+margin_left = 48.0
+margin_top = 16.0
+margin_right = 64.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 24, 32 )
+
+[node name="wallTilePaletteBlock6" parent="Viewport/Camera2D/tiles/TilePalettes/walls" instance=ExtResource( 5 )]
+margin_left = 80.0
+margin_top = 16.0
+margin_right = 96.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 24, 32 )
+
+[node name="floors" type="Node2D" parent="Viewport/Camera2D/tiles/TilePalettes"]
+
+[node name="TilePaletteBlock" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 64.0
+margin_top = 16.0
+margin_right = 80.0
+margin_bottom = 32.0
+
+[node name="TilePaletteBlock2" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_top = 48.0
+margin_bottom = 56.0
+
+[node name="TilePaletteBlock3" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 48.0
+margin_top = 48.0
+margin_right = 80.0
+margin_bottom = 64.0
+
+[node name="TilePaletteBlock4" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 32.0
+margin_top = 64.0
+margin_right = 80.0
+margin_bottom = 80.0
+
+[node name="TilePaletteBlock5" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 128.0
+margin_top = 48.0
+margin_right = 144.0
+margin_bottom = 64.0
+
+[node name="TilePaletteBlock6" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 96.0
+margin_top = 48.0
+margin_right = 112.0
+margin_bottom = 64.0
+
+[node name="TilePaletteBlock7" parent="Viewport/Camera2D/tiles/TilePalettes/floors" instance=ExtResource( 5 )]
+material = SubResource( 50 )
+margin_left = 112.0
+margin_top = 56.0
+margin_right = 128.0
+margin_bottom = 64.0
+
+[node name="water" type="Node2D" parent="Viewport/Camera2D/tiles/TilePalettes"]
+
+[node name="TilePaletteBlock" parent="Viewport/Camera2D/tiles/TilePalettes/water" instance=ExtResource( 5 )]
+material = SubResource( 51 )
+margin_top = 56.0
+margin_bottom = 80.0
+
+[node name="TilePaletteBlock2" parent="Viewport/Camera2D/tiles/TilePalettes/water" instance=ExtResource( 5 )]
+material = SubResource( 51 )
+margin_left = 112.0
+margin_top = 48.0
+margin_right = 128.0
+margin_bottom = 56.0
+
+[node name="wood" type="Node2D" parent="Viewport/Camera2D/tiles/TilePalettes"]
+
+[node name="TilePaletteBlock" parent="Viewport/Camera2D/tiles/TilePalettes/wood" instance=ExtResource( 5 )]
+material = SubResource( 52 )
+margin_left = 16.0
+margin_top = 48.0
+margin_right = 32.0
+margin_bottom = 80.0
+
+[node name="TilePaletteBlock2" parent="Viewport/Camera2D/tiles/TilePalettes/wood" instance=ExtResource( 5 )]
+material = SubResource( 52 )
+margin_left = 80.0
+margin_top = 48.0
+margin_right = 96.0
+margin_bottom = 80.0

@@ -28,12 +28,10 @@ public class LoadSaveGame : OptionLabel
         {
             if (Text == "New Game")
             {
-                GD.Print("newgame");
                 data.NewGame(saveFile);
             } 
             else 
             {
-                GD.Print("loadgame");
                 data.LoadGame(saveFile);
             }
                 GetNode<SceneChanger>("/root/SceneChanger").ChangeScene(data.currentLevel);
