@@ -19,7 +19,6 @@ public class Box : KinematicBody2D
     private Vector2 originalPosition;
     private Vector2 vectorPos;
     public GridMoveTween tween;
-    private Level level;
     public int zCurrent;
 
 

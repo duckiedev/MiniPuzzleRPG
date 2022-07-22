@@ -18,6 +18,7 @@ public class HeightMap : Godot.TileMap
         var tile = (int)GetCellv(position/Data.gridSize)-1;
         if (tile != -2) 
         {
+            GD.Print(tile + " at position " + position/Data.gridSize);
             return tile;
         } 
         else

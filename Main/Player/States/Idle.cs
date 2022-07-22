@@ -88,7 +88,6 @@ public class Idle : PlayerState
                         audioManager.PlaySFX(data.sfxTree.boxMoveSFX);
                         
                         return true;
-                        //CallDeferred("MovePlayer",vectorPos);
                     }
                 }
             }

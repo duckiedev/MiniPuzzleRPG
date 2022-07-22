@@ -4,30 +4,26 @@ using System;
 public class BoxPushed : BoxState
 {
     public Boolean tweenStarted = false;
+
     public async override void Enter(Godot.Collections.Dictionary msg)
     {
         if (msg.Count > 0)
         {
+            float moveSpeed = 0.1f;
             var vectorPos = (Vector2)msg["vectorPos"];
             if (box.fall)
             {
-                GD.Print("Beep!");
-                Camera2D camera = GetNode<Camera2D>("/root/Level/Camera2D");
+                moveSpeed = 0.25f;
                 HeightMap heightMap = GetNode<HeightMap>("/root/Level/HeightMap");
-        
-                int cameraLimitV = camera.LimitBottom/Data.gridSize;
-                GD.Print(cameraLimitV);
-                int boxZ = box.ZIndex;
-                GD.Print(boxZ);
-                for (int i = 0; i < cameraLimitV; i++)
+                int boxZ = box.zCurrent;
+                GD.Print("Box z = " + boxZ);
+                GD.Print("Box z needs to be " + (boxZ-1));
+                for (int i = 1; i < 128; i++)
                 {
-                    int tileCheck = (int)heightMap.GetCellv(box.Position+(vectorPos*i));
-                    GD.Print("check pos : " + (box.Position+(vectorPos*i)));
-                    GD.Print("Tile : " + tileCheck);
-                    if (tileCheck == boxZ-1)
+                    GD.Print("Tile at " + ((box.Position+(vectorPos*i))/Data.gridSize) + " is " + heightMap.CheckTile(box.Position+(vectorPos*i)));
+                    if (heightMap.CheckTile(box.Position+(vectorPos*i)) == (boxZ-1))
                     {
                         vectorPos = vectorPos * i;
-                        GD.Print("vectorPos : " + vectorPos);
                         break;
                     }
                 }
@@ -38,13 +34,12 @@ public class BoxPushed : BoxState
                 "global_position",
                 box.Position,
                 box.Position + vectorPos,
-                0.1f,
+                moveSpeed,
                 Tween.TransitionType.Sine,
                 Tween.EaseType.InOut
             );
             tween.Start();
             await ToSignal(tween,"tween_completed");
-            GD.Print("gobackidle");
             box.stateMachine.TransitionTo("BoxStates/BoxIdle");
             player.stateMachine.TransitionTo("PlayerStates/Idle");
         }
