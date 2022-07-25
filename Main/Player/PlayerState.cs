@@ -4,7 +4,7 @@ using System;
 
 public class PlayerState : State
 {
-    public Data data;
+
     public Player player;
     public CollisionShape2D collisionShape;
     public AudioManager audioManager;
@@ -17,7 +17,7 @@ public class PlayerState : State
     public override void _Ready()
     {
         base._Ready();
-        data = GetNode<Data>("/root/Data");
+        
         player = Owner as Player;
         collisionShape = player.GetNode<CollisionShape2D>("CollisionShape2D");
         audioManager = GetNode<AudioManager>("/root/AudioManager");

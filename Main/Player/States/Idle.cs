@@ -18,10 +18,7 @@ public class Idle : PlayerState
     public override void Enter(Godot.Collections.Dictionary msg)
     {
         player.state = Player.PlayerStates.IDLE;
-        var heightMap = GetNode<HeightMap>("/root/Level/HeightMap");
-        var tileCheck = (int)heightMap.GetCellv(player.Position/Data.gridSize);
-        player.zCurrent = heightMap.CheckTile(player.Position);
-        GD.Print(player.zCurrent);
+        player.zCurrent = player.CheckTile(typeof(HeightMap),player.Position);
         parent.Enter(msg);
     }
 
@@ -37,7 +34,7 @@ public class Idle : PlayerState
             if (@event.IsActionPressed("start"))
             {
                 stateMachine.TransitionTo("PlayerStates/Disabled");
-                data.PauseGame();
+                player.data.PauseGame();
                 return;
             }
 
@@ -47,7 +44,7 @@ public class Idle : PlayerState
                 {
                     var dir = (Vector2)inputs[input];
                     UpdateFacing(dir);
-                    if (CheckCollision(dir))
+                    if (player.CheckCollision(dir))
                     {
                         var args = new Godot.Collections.Dictionary();
                         args.Add("dir",dir);
@@ -63,35 +60,5 @@ public class Idle : PlayerState
         animationTree.Set("parameters/idle/blend_position", dir);
         animationTree.Set("parameters/push/blend_position", dir);
     }
-    public Boolean CheckCollision(Vector2 dir) {
-        var vectorPos = dir * Data.gridSize;
-        ray.CastTo = vectorPos;
-        ray.ForceRaycastUpdate();
-        if (!ray.IsColliding())
-        {
-            return true;
-        }
-        else
-        {
-            var collider = (Node)ray.GetCollider();
-            if (collider.IsInGroup("Box"))
-            {
-                Box colliderBox = collider as Box;
-                if (!colliderBox.tween.IsActive())
-                {
-                    if (colliderBox.CheckCollision(dir))
-                    {
-                        var args = new Godot.Collections.Dictionary();
-                        args.Add("vectorPos",vectorPos);
-                        colliderBox.stateMachine.TransitionTo("BoxStates/BoxPushed",args);
 
-                        audioManager.PlaySFX(data.sfxTree.boxMoveSFX);
-                        
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 }

@@ -10,9 +10,9 @@ public class Move : PlayerState
         if (msg.Count > 0)
         {
             var dir = (Vector2)msg["dir"];
-            var vectorPos = dir * Data.gridSize;
-            MovePlayer(vectorPos);
+            player.vectorPos = dir * Data.gridSize;
         }
+        MovePlayer(player.vectorPos);
         parent.Enter();
     }
 
@@ -35,6 +35,13 @@ public class Move : PlayerState
 
     public void MovePlayer(Vector2 vectorPos)
     {
+        var fallTime = 0.1f;
+        var sfx = player.data.sfxTree.playerMoveSFX;
+        if (player.fall)
+        {
+            fallTime = 0.25f;
+            sfx = player.data.sfxTree.fall;
+        }
         if (!tween.IsActive())
         {
             tween.InterpolateProperty(
@@ -42,13 +49,13 @@ public class Move : PlayerState
                 "position",
                 player.Position,
                 player.Position + vectorPos,
-                0.1f,
+                fallTime,
                 Tween.TransitionType.Sine,
                 Tween.EaseType.InOut
             );
             tween.Start();
             tweenStarted = true;
-            audioManager.PlaySFX(data.sfxTree.playerMoveSFX);
+            audioManager.PlaySFX(sfx);
         }
     }
 }

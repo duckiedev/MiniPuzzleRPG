@@ -11,21 +11,17 @@ public class HeightMap : Godot.TileMap
     public override void _Ready()
     {
         GetNode<Player>("/root/Player").stateMachine.TransitionTo("PlayerStates/Idle");
-    }
-
-    public int CheckTile(Vector2 position)
-    {
-        var tile = (int)GetCellv(position/Data.gridSize)-1;
-        if (tile != -2) 
+        foreach (Node node in GetNode<Level>("/root/Level").GetChildren())
         {
-            GD.Print(tile + " at position " + position/Data.gridSize);
-            return tile;
-        } 
-        else
-        { 
-            return -1;
+            if (node.IsClass("Box"))
+            {
+                Box box = node as Box;
+                box.stateMachine.TransitionTo("BoxStates/BoxIdle");
+            }
         }
     }
+
+ 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)
 //  {

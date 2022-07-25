@@ -1,11 +1,8 @@
 using Godot;
 using System;
 
-public class Player : KinematicBody2D
+public class Player : NodeGBC
 {
-    [Export] public int zFloor = 0;
-    public int zCurrent = 0;
-
     public enum PlayerStates
     {
         IDLE,
@@ -14,14 +11,14 @@ public class Player : KinematicBody2D
         DISABLED,
         WARP
     }
-
-    public StateMachine stateMachine;
     public PlayerStates state;
     public int stepsTaken;
-
+    
     public override void _Ready()
     {
+        base._Ready();
         stateMachine = GetNode<StateMachine>("StateMachine");
+        ray = GetNode<RayCast2D>("RayCast2D");
         AddToGroup("Player",true);
     }
 

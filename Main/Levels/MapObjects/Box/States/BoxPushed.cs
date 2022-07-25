@@ -10,38 +10,27 @@ public class BoxPushed : BoxState
         if (msg.Count > 0)
         {
             float moveSpeed = 0.1f;
-            var vectorPos = (Vector2)msg["vectorPos"];
+            var sfx = data.sfxTree.boxMoveSFX;
             if (box.fall)
             {
+                sfx = data.sfxTree.fall;
                 moveSpeed = 0.25f;
-                HeightMap heightMap = GetNode<HeightMap>("/root/Level/HeightMap");
-                int boxZ = box.zCurrent;
-                GD.Print("Box z = " + boxZ);
-                GD.Print("Box z needs to be " + (boxZ-1));
-                for (int i = 1; i < 128; i++)
-                {
-                    GD.Print("Tile at " + ((box.Position+(vectorPos*i))/Data.gridSize) + " is " + heightMap.CheckTile(box.Position+(vectorPos*i)));
-                    if (heightMap.CheckTile(box.Position+(vectorPos*i)) == (boxZ-1))
-                    {
-                        vectorPos = vectorPos * i;
-                        break;
-                    }
-                }
             }
             //PushBox(vectorPos);
             tween.InterpolateProperty(
                 box,
                 "global_position",
                 box.Position,
-                box.Position + vectorPos,
+                box.Position + box.vectorPos,
                 moveSpeed,
                 Tween.TransitionType.Sine,
                 Tween.EaseType.InOut
             );
             tween.Start();
+            audioManager.PlaySFX(sfx);
             await ToSignal(tween,"tween_completed");
             box.stateMachine.TransitionTo("BoxStates/BoxIdle");
-            player.stateMachine.TransitionTo("PlayerStates/Idle");
+            if (!box.fall) player.stateMachine.TransitionTo("PlayerStates/Idle");
         }
         parent.Enter();
     }

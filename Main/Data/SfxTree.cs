@@ -13,4 +13,6 @@ public class SfxTree : Resource
     [Export] public AudioStream boxWaterFloat;
     [Export] public AudioStream dialogBlip01;
     [Export] public AudioStream dialogBlipDone;
+    [Export] public AudioStream fall;
+    [Export] public AudioStream crystalBreak;
 }

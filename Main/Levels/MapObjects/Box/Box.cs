@@ -1,25 +1,17 @@
 using Godot;
 using System;
 
-public class Box : KinematicBody2D
+public class Box : NodeGBC
 {
-    public StateMachine stateMachine;
     public enum boxState {
         IDLE,
         PUSH,
+        WARP,
         DISABLED
     }
     public boxState state = boxState.IDLE;
-    private Boolean colTileMap;
-    private Boolean colSpot;
-    private Boolean colDropTrigger;
-    public Boolean reset = false;
-    public Boolean fall = false;
-    private RayCast2D ray;
     private Vector2 originalPosition;
-    private Vector2 vectorPos;
     public GridMoveTween tween;
-    public int zCurrent;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -32,7 +24,7 @@ public class Box : KinematicBody2D
         originalPosition = Position;
         AddToGroup("Box",true);
     }
-    public bool CheckCollision(Vector2 dir)
+    /*public bool CheckCollision(Vector2 dir)
     {
         var objArray = new Godot.Collections.Array<Godot.Object>{};
         colTileMap = false;
@@ -109,7 +101,7 @@ public class Box : KinematicBody2D
         } 
 
         return false;
-    }
+    }*/
     public void ResetBox()
     {
         Position = originalPosition;

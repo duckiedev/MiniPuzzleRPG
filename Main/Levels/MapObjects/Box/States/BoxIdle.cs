@@ -9,11 +9,8 @@ public class BoxIdle : BoxState
 
         if (box.fall) 
         {
-            GD.Print("boooops");
+
             ray.CastTo = box.Position;
-            GD.Print(ray.CastTo);
-            GD.Print(box.Position);
-            GD.Print(box.GlobalPosition);
             // Check for Body (MapObject)
             ray.CollideWithBodies = true;
             ray.ForceRaycastUpdate();
@@ -23,18 +20,15 @@ public class BoxIdle : BoxState
                 GD.Print("colliding with " + objNode + " with parent object class " + objNode.GetParent().GetClass());
                 if (objNode.GetParent().Name.BeginsWith("MapObject"))
                 {
-                    MapObject mapObject = objNode as MapObject;
+                    MapObject mapObject = (MapObject)objNode.GetParent();
+                    GD.Print(objNode);
+                    GD.Print(mapObject);
                     mapObject.BreakCrystals();
                 }
             }
             box.fall = false;
         }
-        var heightMap = GetNode<HeightMap>("/root/Level/HeightMap");
-        var tileCheck = (int)heightMap.GetCellv(box.Position/Data.gridSize);
-        box.zCurrent = heightMap.CheckTile(box.Position);
-        GD.Print("box z : " + box.zCurrent);
-
-
+        box.zCurrent = box.CheckTile(typeof(HeightMap),box.Position);
         parent.Enter();
     }
 
