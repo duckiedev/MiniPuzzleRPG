@@ -18,7 +18,7 @@
 [ext_resource path="res://GFX/Palettes/Tiles/tilesilver.png" type="Texture" id=16]
 [ext_resource path="res://GFX/Palettes/Tiles/tilebasepal.png" type="Texture" id=17]
 [ext_resource path="res://Main/Levels/Level.cs" type="Script" id=18]
-[ext_resource path="res://Main/Levels/TileMap.cs" type="Script" id=19]
+[ext_resource path="res://Main/Levels/TileMapGBC.cs" type="Script" id=19]
 
 [sub_resource type="ConvexPolygonShape2D" id=19]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )

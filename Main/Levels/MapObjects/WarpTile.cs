@@ -15,7 +15,6 @@ public class WarpTile : Node2D
 
     public async void _on_Area2D_body_entered(Node body)
     {
-        GD.Print("entered");
         if (!disabled)
         {
             await ToSignal(body.GetNode<GridMoveTween>("GridMoveTween"),"tween_completed");
@@ -38,15 +37,12 @@ public class WarpTile : Node2D
 
     public void _on_Area2D_body_exited(Node2D body)
     {
-        if (disabled)
+        if (!disabled) return;
+        if (body.IsInGroup("Player") || body.IsInGroup("Box"))
         {
-            if (body.IsInGroup("Player") || body.IsInGroup("Box"))
+            if (body.GlobalPosition != GlobalPosition)
             {
-                if (body.GlobalPosition != GlobalPosition)
-                {
-                    GD.Print("disabled again");
-                    disabled = false;
-                }
+                disabled = false;
             }
         }
     }

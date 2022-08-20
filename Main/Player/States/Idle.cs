@@ -3,28 +3,23 @@ using System;
 
 public class Idle : PlayerState
 {
-    public Godot.Collections.Dictionary inputs;
-
     public override void _Ready()
     {
         base._Ready();
-        inputs = new Godot.Collections.Dictionary();
-        inputs.Add("up",Vector2.Up);
-        inputs.Add("down",Vector2.Down);
-        inputs.Add("left",Vector2.Left);
-        inputs.Add("right",Vector2.Right);
+
     }
 
     public override void Enter(Godot.Collections.Dictionary msg)
     {
         player.state = Player.PlayerStates.IDLE;
+        if (player.fall) player.fall = false;
         player.zCurrent = player.CheckTile(typeof(HeightMap),player.Position);
         parent.Enter(msg);
     }
 
     public override void UnhandledInput(InputEvent @event)
     {
-        if (!tween.IsActive())
+        if (!player.tween.IsActive())
         {
             if (@event.IsActionPressed("select"))
             {
@@ -38,17 +33,17 @@ public class Idle : PlayerState
                 return;
             }
 
-            foreach (string input in inputs.Keys)
+            foreach (String input in player.inputs.Keys)
             {
                 if (@event.IsActionPressed(input))
                 {
-                    var dir = (Vector2)inputs[input];
+                    var dir = (Vector2)player.inputs[input];
+
                     UpdateFacing(dir);
-                    if (player.CheckCollision(dir))
+
+                    if (player.CanMove(dir))
                     {
-                        var args = new Godot.Collections.Dictionary();
-                        args.Add("dir",dir);
-                        stateMachine.TransitionTo("PlayerStates/Move",args);
+                        player.stateMachine.TransitionTo("PlayerStates/Move");
                     }
                 }
             }
@@ -59,6 +54,7 @@ public class Idle : PlayerState
     {
         animationTree.Set("parameters/idle/blend_position", dir);
         animationTree.Set("parameters/push/blend_position", dir);
+        animationTree.Set("parameters/walk/blend_position", dir);
     }
 
 }

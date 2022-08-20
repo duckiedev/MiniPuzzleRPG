@@ -31,6 +31,7 @@ public class VictoryDoor : Node2D
 
     public void _on_Area2D_body_entered(Node body)
     {
+        GD.Print("Entered victory: " + body.GetPath());
         if (body.IsInGroup("Player")) {
             Player player = body as Player;
             player.stateMachine.TransitionTo("PlayerStates/Disabled");

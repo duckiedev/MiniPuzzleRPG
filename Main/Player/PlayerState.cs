@@ -12,7 +12,6 @@ public class PlayerState : State
     public AnimationPlayer animationPlayer;
     public AnimationNodeStateMachinePlayback animStateMachine;
     public RayCast2D ray;
-    public GridMoveTween tween;
 
     public override void _Ready()
     {
@@ -26,6 +25,6 @@ public class PlayerState : State
         animationTree.Active = true;
         ray = player.GetNode<RayCast2D>("RayCast2D");
         animStateMachine = (AnimationNodeStateMachinePlayback)animationTree.Get("parameters/playback");
-        tween = player.GetNode<GridMoveTween>("GridMoveTween");
+
     }
 }

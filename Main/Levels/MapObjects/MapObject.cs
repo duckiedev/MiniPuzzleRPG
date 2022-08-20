@@ -30,7 +30,6 @@ public class MapObject : Node2D
         // Destroy each of the crystals associated with it
         foreach (Node item in breakableCrystalChildren)
         {
-            GD.Print(item.Name);
             if (item.Name.BeginsWith("MapObject"))
             {
                 var crystal = (Node2D)item;

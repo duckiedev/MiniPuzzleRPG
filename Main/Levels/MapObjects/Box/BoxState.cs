@@ -18,7 +18,6 @@ public class BoxState : State
         box = Owner as Box;
         boxCollision = box.GetNode<CollisionShape2D>("CollisionShape2D");
         audioManager = GetTree().Root.GetNode<AudioManager>("AudioManager");
-        ray = box.GetNode<RayCast2D>("RayCast2D");
         tween = box.GetNode<GridMoveTween>("GridMoveTween");
         player = GetTree().Root.GetNode<Player>("Player");
     }

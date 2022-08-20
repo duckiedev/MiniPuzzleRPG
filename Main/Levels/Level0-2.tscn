@@ -14,7 +14,7 @@
 [ext_resource path="res://Main/Levels/MapObjects/VictoryDoor.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Main/Levels/MapObjects/BreakableTile.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Main/Levels/HeightMap.cs" type="Script" id=14]
-[ext_resource path="res://Main/Levels/TileMap.cs" type="Script" id=16]
+[ext_resource path="res://Main/Levels/TileMapGBC.cs" type="Script" id=16]
 
 [sub_resource type="TileSet" id=48]
 0/name = "heightmaptiles.png 0"
@@ -74,7 +74,7 @@
 3/shapes = [  ]
 3/z_index = 0
 
-[sub_resource type="Shader" id=44]
+[sub_resource type="Shader" id=49]
 code = "shader_type canvas_item;
 
 uniform bool screen_mode = true;
@@ -105,7 +105,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=45]
-shader = SubResource( 44 )
+shader = SubResource( 49 )
 shader_param/screen_mode = false
 shader_param/num_colors = 4
 shader_param/precision = 0.1

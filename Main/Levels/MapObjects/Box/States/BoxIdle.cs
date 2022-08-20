@@ -9,20 +9,13 @@ public class BoxIdle : BoxState
 
         if (box.fall) 
         {
-
-            ray.CastTo = box.Position;
-            // Check for Body (MapObject)
-            ray.CollideWithBodies = true;
-            ray.ForceRaycastUpdate();
-            if (ray.IsColliding()) {
-                var obj = ray.GetCollider();
-                Node objNode = (Node)obj;
-                GD.Print("colliding with " + objNode + " with parent object class " + objNode.GetParent().GetClass());
-                if (objNode.GetParent().Name.BeginsWith("MapObject"))
+            var colliders = box.CheckCollision(Vector2.Zero);
+            if (colliders.Contains("StaticBod"))
+            {
+                Node obj = (Node)colliders["StaticBod"];
+                if (obj.GetParent().Name.BeginsWith("MapObject"))
                 {
-                    MapObject mapObject = (MapObject)objNode.GetParent();
-                    GD.Print(objNode);
-                    GD.Print(mapObject);
+                    MapObject mapObject = (MapObject)obj.GetParent();
                     mapObject.BreakCrystals();
                 }
             }

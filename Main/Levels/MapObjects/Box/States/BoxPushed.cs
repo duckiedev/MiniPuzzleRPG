@@ -7,8 +7,8 @@ public class BoxPushed : BoxState
 
     public async override void Enter(Godot.Collections.Dictionary msg)
     {
-        if (msg.Count > 0)
-        {
+        //if (msg.Count > 0)
+        //{
             float moveSpeed = 0.1f;
             var sfx = data.sfxTree.boxMoveSFX;
             if (box.fall)
@@ -31,7 +31,7 @@ public class BoxPushed : BoxState
             await ToSignal(tween,"tween_completed");
             box.stateMachine.TransitionTo("BoxStates/BoxIdle");
             if (!box.fall) player.stateMachine.TransitionTo("PlayerStates/Idle");
-        }
+        //}
         parent.Enter();
     }
 

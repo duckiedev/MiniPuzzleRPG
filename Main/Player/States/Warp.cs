@@ -10,7 +10,7 @@ public class Warp : PlayerState
         {
             animationTree.Active = false;
             animationPlayer.Play("spin");
-            tween.InterpolateProperty(
+            player.tween.InterpolateProperty(
                 animationPlayer,
                 "playback_speed",
                 0.5,
@@ -20,7 +20,7 @@ public class Warp : PlayerState
                 Tween.EaseType.In
             );
 
-            tween.InterpolateProperty(
+            player.tween.InterpolateProperty(
                 player,
                 "position",
                 player.Position,
@@ -30,14 +30,14 @@ public class Warp : PlayerState
                 Tween.EaseType.In
             );
 
-            tween.Start();
+            player.tween.Start();
 
-            await ToSignal(tween,"tween_all_completed");
+            await ToSignal(player.tween,"tween_all_completed");
 
             animationTree.Active = false;
             animationPlayer.Play("spin");
             WarpTile warpTo = msg["warpTo"] as WarpTile;
-            tween.InterpolateProperty(
+            player.tween.InterpolateProperty(
                 animationPlayer,
                 "playback_speed",
                 3,
@@ -47,7 +47,7 @@ public class Warp : PlayerState
                 Tween.EaseType.In
             );
 
-            tween.InterpolateProperty(
+            player.tween.InterpolateProperty(
                 player,
                 "position",
                 new Vector2(0,-96) + warpTo.GlobalPosition,
@@ -57,17 +57,14 @@ public class Warp : PlayerState
                 Tween.EaseType.In
             );
 
-            tween.Start();
+            player.tween.Start();
 
-            await ToSignal(tween,"tween_all_completed");
+            await ToSignal(player.tween,"tween_all_completed");
 
             animationTree.Active = true;
             animationPlayer.Stop();
-            var args = new Godot.Collections.Dictionary();
-            GD.Print("boxplaceGP : " + warpTo.boxPlace.GlobalPosition + " warptoGP : " + warpTo.GlobalPosition);
-            GD.Print("MoveTo: " + (warpTo.boxPlace.GlobalPosition-warpTo.GlobalPosition)/16);
-            args.Add("dir",(warpTo.boxPlace.GlobalPosition-warpTo.GlobalPosition)/16);
-            stateMachine.TransitionTo("PlayerStates/Move",args);
+            player.vectorPos = (warpTo.boxPlace.GlobalPosition-warpTo.GlobalPosition)/Data.gridSize;
+            stateMachine.TransitionTo("PlayerStates/Move");
         }
     }
 

@@ -12,7 +12,7 @@
 [ext_resource path="res://Main/Levels/MapObjects/VictoryDoor.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Main/Levels/Level0-1.tres" type="TileSet" id=14]
 [ext_resource path="res://Main/Levels/HeightMap.cs" type="Script" id=15]
-[ext_resource path="res://Main/Levels/TileMap.cs" type="Script" id=16]
+[ext_resource path="res://Main/Levels/TileMapGBC.cs" type="Script" id=16]
 [ext_resource path="res://GFX/Palettes/Tiles/tilebasepal.png" type="Texture" id=17]
 [ext_resource path="res://GFX/Palettes/Tiles/tilefloorredcrystal.png" type="Texture" id=18]
 [ext_resource path="res://Main/Levels/MapObjects/MapObject.tscn" type="PackedScene" id=19]
@@ -114,7 +114,7 @@ shader_param/palette_in = ExtResource( 17 )
 shader_param/palette_out = ExtResource( 18 )
 
 [sub_resource type="RectangleShape2D" id=25]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="Shader" id=53]
 code = "shader_type canvas_item;
@@ -158,7 +158,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=58]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=54]
 shader = SubResource( 53 )
@@ -172,7 +172,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=47]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=56]
 shader = SubResource( 53 )
@@ -186,7 +186,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=48]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=66]
 shader = SubResource( 53 )
@@ -200,7 +200,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=59]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=63]
 shader = SubResource( 53 )
@@ -214,7 +214,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=65]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=61]
 shader = SubResource( 53 )
@@ -228,7 +228,7 @@ shader_param/palette_out = ExtResource( 18 )
 load_path = "res://.import/tileset01.png-fb9489633b023ed6392d8fbcc864101f.stex"
 
 [sub_resource type="RectangleShape2D" id=51]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7, 7 )
 
 [sub_resource type="Shader" id=23]
 code = "shader_type canvas_item;
@@ -415,4 +415,5 @@ position = Vector2( 128, 224 )
 [editable path="BreakableCrystals/MapObject5"]
 [editable path="BreakableCrystals/MapObject6"]
 [editable path="VictoryDoor"]
+[editable path="SpotToggle"]
 [editable path="SpotToggle/MapObject"]

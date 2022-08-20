@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Main/Levels/Level0-1.tres" type="TileSet" id=1]
 [ext_resource path="res://Main/Levels/Level.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Main/Levels/MapObjects/Box/Box.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Main/Levels/MapObjects/BreakableTile.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Main/Levels/MapObjects/ActionSpawn.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Main/Levels/TileMapGBC.cs" type="Script" id=15]
 [ext_resource path="res://GFX/Palettes/Tiles/tilebasepal.png" type="Texture" id=16]
 [ext_resource path="res://Main/Levels/MapObjects/MapObject.tscn" type="PackedScene" id=19]
 
@@ -76,10 +77,10 @@
 3/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=47]
-extents = Vector2( 8, 16 )
+extents = Vector2( 7, 15 )
 
 [sub_resource type="RectangleShape2D" id=48]
-extents = Vector2( 8, 16 )
+extents = Vector2( 7, 15 )
 
 [sub_resource type="Shader" id=44]
 code = "shader_type canvas_item;
@@ -120,7 +121,7 @@ shader_param/palette_in = ExtResource( 16 )
 shader_param/palette_out = ExtResource( 10 )
 
 [sub_resource type="RectangleShape2D" id=50]
-extents = Vector2( 16, 8 )
+extents = Vector2( 15, 7 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -132,7 +133,8 @@ playerCanMove = true
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -1, 16, 0, -65536, 16, 131076, -65535, 16, 1, -65534, 16, 2, -65529, 16, 0, -65528, 16, 1, -65527, 16, 1, -65526, 16, 131076, -65525, 16, 2, 65535, 16, 65536, 0, 16, 65537, 1, 16, 65537, 2, 16, 65538, 4, 0, 0, 5, 0, 0, 7, 16, 65541, 8, 16, 65537, 9, 16, 65537, 10, 16, 65537, 11, 16, 65538, 131071, 16, 65541, 65536, 16, 65537, 65537, 16, 3, 65538, 16, 131074, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65543, 16, 131072, 65544, 16, 4, 65545, 16, 5, 65546, 16, 65537, 65547, 16, 65538, 196607, 16, 65536, 131072, 16, 65537, 131073, 16, 65539, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131079, 0, 0, 131080, 0, 0, 131081, 16, 131072, 131082, 16, 131073, 131083, 16, 131074, 262143, 16, 131072, 196608, 16, 131073, 196609, 16, 131074, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 3, 0, 196615, 0, 0, 196616, 3, 0, 196617, 3, 0, 262144, 3, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 2, 0, 262151, 3, 0, 262152, 2, 0, 262153, 2, 0, 327680, 2, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 3, 0, 327685, 3, 0, 327686, 2, 0, 327687, 7, 0, 327688, 2, 0, 327689, 2, 0, 458751, 16, 0, 393216, 16, 131076, 393217, 16, 2, 393218, 0, 0, 393219, 0, 0, 393220, 8, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 2, 0, 524287, 16, 65541, 458752, 16, 65537, 458753, 16, 131075, 458754, 16, 131076, 458755, 16, 131076, 458756, 16, 131076, 458757, 16, 2, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 16, 0, 458762, 16, 2, 589823, 16, 65541, 524288, 16, 65537, 524289, 16, 65537, 524290, 16, 65537, 524291, 16, 65537, 524292, 16, 65537, 524293, 16, 65539, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 16, 65541, 524298, 16, 65539, 655359, 16, 131072, 589824, 16, 4, 589825, 16, 4, 589826, 16, 4, 589827, 16, 131073, 589828, 16, 4, 589829, 16, 131074, 589833, 16, 131072, 589834, 16, 131074 )
+tile_data = PoolIntArray( -1, 16, 0, -65536, 16, 131076, -65535, 16, 1, -65534, 16, 2, -65529, 16, 0, -65528, 16, 1, -65527, 16, 1, -65526, 16, 131076, -65525, 16, 2, 65535, 16, 65536, 0, 16, 65537, 1, 16, 65537, 2, 16, 65538, 4, 0, 0, 5, 0, 0, 7, 16, 65541, 8, 16, 65537, 9, 16, 65537, 10, 16, 65537, 11, 16, 65538, 131071, 16, 65541, 65536, 16, 65537, 65537, 16, 3, 65538, 16, 131074, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65543, 16, 131072, 65544, 16, 131073, 65545, 16, 5, 65546, 16, 65537, 65547, 16, 65538, 196607, 16, 65536, 131072, 16, 65537, 131073, 16, 65539, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131079, 10, 0, 131080, 0, 0, 131081, 16, 131072, 131082, 16, 131073, 131083, 16, 131074, 262143, 16, 131072, 196608, 16, 131073, 196609, 16, 131074, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 3, 0, 196615, 0, 0, 196616, 3, 0, 196617, 3, 0, 262144, 3, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 2, 0, 262151, 3, 0, 262152, 2, 0, 262153, 2, 0, 327680, 2, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 3, 0, 327685, 3, 0, 327686, 2, 0, 327687, 7, 0, 327688, 2, 0, 327689, 2, 0, 458751, 16, 0, 393216, 16, 131076, 393217, 16, 2, 393218, 0, 0, 393219, 0, 0, 393220, 8, 0, 393221, 2, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 2, 0, 524287, 16, 65541, 458752, 16, 65537, 458753, 16, 131075, 458754, 16, 131076, 458755, 16, 131076, 458756, 16, 1, 458757, 16, 2, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 16, 0, 458762, 16, 2, 589823, 16, 65541, 524288, 16, 65537, 524289, 16, 65537, 524290, 16, 65537, 524291, 16, 65537, 524292, 16, 65537, 524293, 16, 65539, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 16, 65541, 524298, 16, 65539, 655359, 16, 131072, 589824, 16, 4, 589825, 16, 4, 589826, 16, 4, 589827, 16, 131073, 589828, 16, 4, 589829, 16, 131074, 589833, 16, 131072, 589834, 16, 131074 )
+script = ExtResource( 15 )
 
 [node name="HeightMap" type="TileMap" parent="."]
 visible = false
@@ -146,6 +148,12 @@ script = ExtResource( 9 )
 [node name="VictoryDoor" parent="." instance=ExtResource( 4 )]
 position = Vector2( 64, -16 )
 
+[node name="Spot" parent="." instance=ExtResource( 8 )]
+position = Vector2( 112, 64 )
+
+[node name="Spot2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 80, 96 )
+
 [node name="MapObject" parent="." instance=ExtResource( 19 )]
 position = Vector2( 48, 0 )
 
@@ -157,14 +165,10 @@ position = Vector2( 8, 16 )
 shape = SubResource( 47 )
 
 [node name="MapObject2" parent="." instance=ExtResource( 19 )]
-position = Vector2( 48, 0 )
+position = Vector2( 96, 0 )
 
 [node name="Sprite" parent="MapObject2" index="0"]
-position = Vector2( 48, 0 )
 region_rect = Rect2( 16, 48, 16, 32 )
-
-[node name="StaticBody2D" parent="MapObject2" index="1"]
-position = Vector2( 48, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapObject2/StaticBody2D" index="0"]
 position = Vector2( 8, 16 )
@@ -190,12 +194,6 @@ position = Vector2( 112, 112 )
 [node name="box2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 48, 48 )
 
-[node name="Spot" parent="." instance=ExtResource( 8 )]
-position = Vector2( 112, 64 )
-
-[node name="Spot2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 80, 96 )
-
 [node name="ProgTracker" parent="." instance=ExtResource( 11 )]
 trackerMax = 1
 
@@ -205,7 +203,6 @@ breakTime = 1
 
 [node name="TileTarget" parent="ProgTracker/BreakableTile" instance=ExtResource( 7 )]
 position = Vector2( 0, 16 )
-tileIndex = 3
 
 [node name="ActionSpawn" parent="ProgTracker" instance=ExtResource( 14 )]
 position = Vector2( 112, 112 )
@@ -220,4 +217,6 @@ position = Vector2( 112, 128 )
 [editable path="VictoryDoor"]
 [editable path="MapObject"]
 [editable path="MapObject2"]
+[editable path="SpotToggle"]
 [editable path="SpotToggle/MapObject"]
+[editable path="ProgTracker/BreakableTile"]

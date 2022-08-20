@@ -5,7 +5,7 @@ public class SpotToggle : Area2D
 {
     private Data data;
     private Node targetNode;
-    private TileMap tileMap;
+    private TileMapGBC tileMap;
     private AudioManager audioManager;
 
     public override void _Ready()
@@ -13,7 +13,7 @@ public class SpotToggle : Area2D
         data = GetNode<Data>("/root/Data");
         audioManager = GetNode<AudioManager>("/root/AudioManager");
         //await ToSignal(Owner, "ready");
-        tileMap = GetNode("/root/Level/TileMap") as TileMap;
+        tileMap = GetNode("/root/Level/TileMap") as TileMapGBC;
 
         for (int i = 0; i < GetChildCount(); i++)
         {
@@ -32,9 +32,9 @@ public class SpotToggle : Area2D
     }
     public void _on_SpotToggle_body_entered(Node body)
     {
-        if (body.IsClass("TileMap")) return;
+        if (body.IsClass("TileMapGBC")) return;
 
-        tileMap.SwapTile(body,Position,TileMap.tiles.SPOT_TOGGLE_DOWN);
+        tileMap.SwapTile(body,Position,TileMapGBC.tiles.SPOT_TOGGLE_DOWN);
         audioManager.PlaySFX(data.sfxTree.stepSwitchOn);
 
         if (targetNode is MapObject)
@@ -51,7 +51,7 @@ public class SpotToggle : Area2D
     public void _on_SpotToggle_body_exited(Node body)
     {
         if (body.IsClass("TileMap")) return;
-        tileMap.SwapTile(body,this.Position,TileMap.tiles.SPOT_TOGGLE_UP);
+        tileMap.SwapTile(body,this.Position,TileMapGBC.tiles.SPOT_TOGGLE_UP);
         audioManager.PlaySFX(data.sfxTree.stepSwitchOff);
         if (targetNode is MapObject)
         {

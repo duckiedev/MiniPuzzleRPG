@@ -64,10 +64,9 @@ public class BoxWarp : BoxState
 
             //animationTree.Active = true;
             //animationPlayer.Stop();
-            var args = new Godot.Collections.Dictionary();
-            GD.Print("BINGUS");
-            args.Add("vectorPos",warpTo.boxPlace.GlobalPosition-warpTo.GlobalPosition);
-            stateMachine.TransitionTo("BoxStates/BoxPushed",args);
+            //var args = new Godot.Collections.Dictionary();
+            box.SetNextPosition(warpTo.boxPlace.GlobalPosition-warpTo.GlobalPosition);
+            stateMachine.TransitionTo("BoxStates/BoxPushed");
         }
     }
 }

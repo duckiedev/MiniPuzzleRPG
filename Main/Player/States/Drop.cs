@@ -19,7 +19,7 @@ public class Drop : PlayerState
 
     public override void Process(float delta)
     {
-        if (!tween.IsActive())
+        if (!player.tween.IsActive())
         {
             if (tweenStarted)
             {
@@ -36,9 +36,9 @@ public class Drop : PlayerState
 
     public void DropPlayer(Vector2 vectorPos)
     {
-        if (!tween.IsActive())
+        if (!player.tween.IsActive())
         {
-            tween.InterpolateProperty(
+            player.tween.InterpolateProperty(
                 player,
                 "position",
                 player.Position,
@@ -47,7 +47,7 @@ public class Drop : PlayerState
                 Tween.TransitionType.Sine,
                 Tween.EaseType.InOut
             );
-            tween.Start();
+            player.tween.Start();
             tweenStarted = true;
         }
     }

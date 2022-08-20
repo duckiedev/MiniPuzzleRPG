@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class TileTarget : Area2D
+public class TileTarget : Node2D
 {
-    [Export(PropertyHint.Range)] public TileMap.tiles tileIndex;
+    [Export(PropertyHint.Range)] public TileMapGBC.tiles tileIndex;
 }

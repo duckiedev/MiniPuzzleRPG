@@ -5,16 +5,18 @@ public class NodeGBC : KinematicBody2D
 {
     public Data data;
     public StateMachine stateMachine;
-    public RayCast2D ray;
-    public HeightMap heightMap;
+    public AnimationTree animationTree;
+    public AnimationNodeStateMachinePlayback animStateMachine;
     public int zCurrent = 0;
     public Boolean fall;
     public Boolean reset;
     public Vector2 vectorPos;
+    public GridMoveTween tween;
 
     public override void _Ready()
     {
         data = GetNode<Data>("/root/Data");
+        tween = GetNode<GridMoveTween>("GridMoveTween");
     }
 
     public int CheckTile(Type tileMapType, Vector2 pos)
@@ -36,70 +38,38 @@ public class NodeGBC : KinematicBody2D
         }
         else
         {
-            TileMap map = GetNode<TileMap>("/root/Level/" + tileMapType.ToString());
+            TileMapGBC map = GetNode<TileMapGBC>("/root/Level/TileMap");
             int tile = map.GetCellv(pos/Data.gridSize);
             return tile;
         }
     }
 
-    public Boolean CheckCollision(Vector2 dir) {
-        TileMap colTileMap = null;
-        Spot colSpot = null;
-        Area2D colDropTrigger = null;
-        Box colBox = null;
-        StaticBody2D colStaticBod = null;
+    #region Movement
+    public void SetNextPosition(Vector2 nextPos)
+    {
+        vectorPos = nextPos;
+    }
+    
+    public Boolean CanMove(Vector2 dir)
+    {
+        var tilePos = dir * Data.gridSize;
 
-        GD.Print("checking for " + Name);
-        vectorPos = dir * Data.gridSize;
+        SetNextPosition(tilePos);
 
-        ray.CastTo = vectorPos;
-
-        // Check for Body (TileMap, Box)
-        ray.CollideWithBodies = true;
-        ray.CollideWithAreas = false;
-        ray.ForceRaycastUpdate();
-        if (ray.IsColliding()) 
-        {
-            var obj = ray.GetCollider();
-            Node objNode = (Node)obj;
-            if (objNode.IsClass("TileMap")) colTileMap = (TileMap)objNode;
-            if (objNode.IsInGroup("Box")) colBox = (Box)objNode;
-            if (objNode.IsClass("StaticBody2D")) colStaticBod = (StaticBody2D)objNode;
-        }
-        // Check for Spot (Area2Ds)
-        ray.CollideWithBodies = false;
-        ray.CollideWithAreas = true;
-        ray.ForceRaycastUpdate();
-        if (ray.IsColliding()) 
-        {
-            var obj = ray.GetCollider();
-            Node objNode = (Node)obj;
-            GD.Print(objNode.Name);
-            if (objNode.Name.BeginsWith("DropTrigger")) colDropTrigger = (Area2D)objNode;
-            if (objNode.IsClass("Spot")) colSpot = (Spot)objNode;
-        }
-
-        GD.Print(Name + " colTileMap : " + colTileMap);
-        GD.Print(Name + " colBox : " + colBox);
-        GD.Print(Name + " colStaticBod : " + colStaticBod);
-        GD.Print(Name + " colDropTrigger : " + colDropTrigger);
-        GD.Print(Name + " colSpot : " + colSpot);
-
-        if (colStaticBod != null)
-        {
-            return false;
-        }
+        var colliders = CheckCollision(tilePos);
         
-        if (colBox != null)
+        GD.Print(colliders);
+
+        if (colliders.Contains("StaticBod") && !colliders.Contains("DropTrigger")) return false;
+
+        if (colliders.Contains("Box"))
         {
-            GD.Print("BOX!");
-            if (!colBox.tween.IsActive())
+            var box = (Box)colliders["Box"];
+            if (!box.tween.IsActive())
             {
-                if (colBox.CheckCollision(dir))
+                if (box.CanMove(dir))
                 {
-                    var args = new Godot.Collections.Dictionary();
-                    args.Add("vectorPos",vectorPos);
-                    colBox.stateMachine.TransitionTo("BoxStates/BoxPushed",args);
+                    box.stateMachine.TransitionTo("BoxStates/BoxPushed");
                     return true;
                 }
                 else
@@ -109,102 +79,121 @@ public class NodeGBC : KinematicBody2D
             }
         }
 
-        if (colDropTrigger != null && colTileMap != null)
+        if (colliders.Contains("DropTrigger") && colliders.Contains("TileMap"))
         {
-            var results = CheckFallPlace(Position,vectorPos,zCurrent);
-            if (IsInGroup("Player"))
+            var fallPosition = GetFallPosition(tilePos,zCurrent);
+            GD.Print("fallPos: " + fallPosition);
+            if (CanFall(fallPosition))
             {
-                GD.Print("checking fall for player");
-                if (results.Contains("obj"))
-                {
-                    GD.Print("cant fall because of " + results["obj"].ToString());
-                    return false;
-                }
-                else
-                {
-                    GD.Print("can fall");
-                    vectorPos = (Vector2)results["pos"];
-                    fall = true;
-                    return true;
-                }
-            }
-            if (IsInGroup("Box"))
-            {
-                GD.Print("Checking fall place for box");
-                if (!results.Contains("obj"))
-                {
-                    GD.Print("boop");
-                    fall = true;
-                    vectorPos = (Vector2)results["pos"];
-                    stateMachine.TransitionTo("BoxStates/BoxPushed");
-                    return true;
-                }
-            }
-        }
-
-        if (colTileMap == null && colSpot == null)
-        {
-            return true;
-        }
-
-        if (colTileMap == null && colSpot != null) 
-        {
-            return true;
-        }
-
-        GD.Print(Name + " checking pos : " + (Position + vectorPos));
-        var tileCheck = CheckTile(typeof(TileMap),(Position + vectorPos));
-        GD.Print(tileCheck);
-        // if theres both a tilemap collision and a spot collision
-        // ignore the spot, move anyway if the tile allows it
-        if (colTileMap != null && colSpot != null) 
-        {
-            switch (tileCheck)
-            {
-                case (int)TileMap.tiles.WATER:
-                case (int)TileMap.tiles.WATER_LEDGE:
-                case (int)TileMap.tiles.LEDGE:
-                    return true;
-                //break;
-            }
-        }
-
-        if (colTileMap != null && colSpot == null) 
-        {
-            switch (tileCheck)
-            {
-                case (int)TileMap.tiles.WATER:
-                case (int)TileMap.tiles.WATER_LEDGE:
-                case (int)TileMap.tiles.LEDGE:
-                    reset = true;
+                fall = true;
+                SetNextPosition(fallPosition);
                 return true;
             }
-        } 
+            else
+            {
+                return false;
+            }
+        }
+
+        if (!colliders.Contains("TileMap") && !colliders.Contains("Spot"))
+        {
+            return true;
+        }
+
+        if (!colliders.Contains("TileMap") && colliders.Contains("Spot")) 
+        {
+            return true;
+        }
+
+        var tileCheck = CheckTile(typeof(TileMapGBC),(Position + vectorPos));
+        // if theres both a tilemap collision and a spot collision
+        // ignore the spot, move anyway if the tile allows it
+        if (this is Box)
+        {
+            if (colliders.Contains("TileMap") && colliders.Contains("Spot")) 
+            {
+                switch (tileCheck)
+                {
+                    case (int)TileMapGBC.tiles.WATER:
+                    case (int)TileMapGBC.tiles.WATER_LEDGE:
+                    case (int)TileMapGBC.tiles.LEDGE:
+                        return true;
+                    //break;
+                }
+            }
+
+            if (colliders.Contains("TileMap") && !colliders.Contains("Spot")) 
+            {
+                switch (tileCheck)
+                {
+                    case (int)TileMapGBC.tiles.WATER:
+                    case (int)TileMapGBC.tiles.WATER_LEDGE:
+                    case (int)TileMapGBC.tiles.LEDGE:
+                        reset = true;
+                    return true;
+                }
+            }
+        }
         return false;            
     }
 
-    public Godot.Collections.Dictionary CheckFallPlace(Vector2 pos, Vector2 dir, int z)
+    public Godot.Collections.Dictionary CheckCollision(Vector2 pos) 
     {
-        var returns = new Godot.Collections.Dictionary();
-        for (int i = 1; i < 128; i++)
-        {
-           if (CheckTile(typeof(HeightMap),pos+(dir*i)) == (z-1))
-            {
-                returns.Add("pos",dir*i);
-                RayCast2D rayCast = new RayCast2D();
-                rayCast.CastTo = dir*i;
-                AddChild(rayCast);
-                rayCast.ForceRaycastUpdate();
+        var checkPos = (Position + new Vector2(8,8) + pos);
+        var spaceState = GetWorld2d().DirectSpaceState;
+        var intersects = spaceState.IntersectPoint(checkPos);
+        if (this is Box) GD.Print("---------BOX--------");
+        GD.Print("Checking collision at : " + (checkPos));
+        Godot.Collections.Dictionary returns = new Godot.Collections.Dictionary();
 
-                if (rayCast.IsColliding())
-                {
-                    var collider = (Node)rayCast.GetCollider();
-                    if (!collider.IsClass("TileMap")) returns.Add("obj",(Node)rayCast.GetCollider());
-                }
-                rayCast.QueueFree();
-                break;
-            }
+        GD.Print(intersects);
+
+        foreach (Godot.Collections.Dictionary item in intersects)
+        {
+            Godot.Node collider = (Godot.Node)item["collider"];
+            if (collider is TileMapGBC && !returns.Contains("TileMap"))         returns.Add("TileMap",(TileMapGBC)collider);
+            if (collider is Box && !returns.Contains("Box"))                    returns.Add("Box",(Box)collider);
+            if (collider is StaticBody2D && !returns.Contains("StaticBod"))     returns.Add("StaticBod",(StaticBody2D)collider);
+            //if (collider is Area2D && !returns.Contains("Area2D"))              returns.Add("Area2D",(Area2D)collider);
+            if (collider is DropTrigger && !returns.Contains("DropTrigger"))    returns.Add("DropTrigger",(DropTrigger)collider);
+            if (collider is Spot && !returns.Contains("Spot"))                  returns.Add("Spot",(Spot)collider);
         }
         return returns;
     }
+    #endregion
+
+    #region Falling
+    public Boolean CanFall(Vector2 position)
+    {
+        var colliders = CheckFallCollision(position);
+
+        foreach (Godot.Collections.Dictionary item in colliders)
+        {
+            if (item["collider"] is StaticBody2D) {
+                if (this is Box) return true;
+                return false;
+            }
+            if (item["collider"] is Box) return false;
+        }
+        return true;
+    }
+    public Vector2 GetFallPosition(Vector2 dir, int z)
+    {
+        for (int i = 1; i < 128; i++)
+        {
+            var checkTile = CheckTile(typeof(HeightMap),Position+(dir*i));
+            if (checkTile == (z-1))
+                {
+                    return dir*i;
+                }
+            }
+        return Vector2.Zero;
+    }
+    public Godot.Collections.Array CheckFallCollision(Vector2 pos)
+    {
+        var spaceState = GetWorld2d().DirectSpaceState;
+        var result = spaceState.IntersectPoint(Position+new Vector2(8,8)+pos);
+        return result;
+    }
+    #endregion
 }
